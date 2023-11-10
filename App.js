@@ -3,6 +3,9 @@ import { StyleSheet, SafeAreaView, Text, View, FlatList } from "react-native";
 import { collection, onSnapshot } from "firebase/firestore";
 import { db } from "./src/config/firebase";
 
+import CreateUser from "./src/components/CreateUser";
+import DeleteUser from "./src/components/DeleteUser";
+
 export default function App() {
   const [people, setPeople] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -21,16 +24,16 @@ export default function App() {
   const renderItem = ({ item }) => (
     <View>
       <Text>{item.username}</Text>
+      <DeleteUser id={item.id}></DeleteUser>
     </View>
   );
-
-  console.log(people);
 
   return (
     <SafeAreaView style={styles.container}>
       <Text style={styles.text}>
         Open up App.js to start working on your app!
       </Text>
+      <CreateUser />
       <FlatList
         data={people}
         renderItem={renderItem}

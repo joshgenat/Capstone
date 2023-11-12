@@ -1,7 +1,8 @@
 import React from "react";
-import { StyleSheet, View, Text, TextInput, Pressable } from "react-native";
+import { StyleSheet, View, Alert } from "react-native";
 import { deleteDoc, doc } from "firebase/firestore";
 import { db } from "../config/firebase";
+import AppButton from "./AppButton";
 
 export default function DeleteUser({ id }) {
   function deleteUser() {
@@ -11,9 +12,20 @@ export default function DeleteUser({ id }) {
 
   return (
     <View style={styles.container}>
-      <Pressable onPress={deleteUser}>
-        <Text>X</Text>
-      </Pressable>
+      <AppButton
+        title="Delete User"
+        onPress={() =>
+          Alert.alert("Are you sure you want to delete", "message", [
+            {
+              text: "Yes",
+              onPress: () => {
+                deleteUser;
+              },
+            },
+            { text: "No" },
+          ])
+        }
+      ></AppButton>
     </View>
   );
 }
@@ -24,5 +36,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     alignItems: "center",
     justifyContent: "center",
+    width: "100%",
+    padding: 20,
   },
 });

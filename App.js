@@ -5,6 +5,8 @@ import { db } from "./src/config/firebase";
 
 import CreateUser from "./src/components/CreateUser";
 import DeleteUser from "./src/components/DeleteUser";
+import Card from "./src/components/Card";
+import colors from "./src/config/colors";
 
 export default function App() {
   const [people, setPeople] = useState([]);
@@ -30,10 +32,11 @@ export default function App() {
 
   return (
     <SafeAreaView style={styles.container}>
-      <Text style={styles.text}>
-        Open up App.js to start working on your app!
-      </Text>
       <CreateUser />
+      <View style={styles.cardContainer}>
+        <Card title="Ceiling Lights" icon="lightbulb-outline"></Card>
+        <Card title="Floor Lights" icon="lightbulb-outline"></Card>
+      </View>
       <FlatList
         data={people}
         renderItem={renderItem}
@@ -46,7 +49,12 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
+    backgroundColor: colors.white,
     justifyContent: "center",
+  },
+  cardContainer: {
+    flexDirection: "row",
+    justifyContent: "space-evenly",
+    paddingHorizontal: 10,
   },
 });

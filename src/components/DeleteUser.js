@@ -15,11 +15,11 @@ export default function DeleteUser({ id }) {
       <AppButton
         title="Delete User"
         onPress={() =>
-          Alert.alert("Are you sure you want to delete", "message", [
+          Alert.alert("Are you sure you want to delete", "", [
             {
               text: "Yes",
               onPress: () => {
-                deleteUser;
+                deleteUser();
               },
             },
             { text: "No" },

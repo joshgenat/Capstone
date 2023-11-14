@@ -8,6 +8,7 @@ import DeleteUser from "./src/components/DeleteUser";
 import Card from "./src/components/Card";
 import colors from "./src/config/colors";
 import WelcomeScreen from "./src/screens/WelcomeScreen";
+import AppTextInput from "./src/components/AppTextInput";
 
 export default function App() {
   const [people, setPeople] = useState([]);
@@ -43,7 +44,7 @@ export default function App() {
         renderItem={renderItem}
         keyExtractor={(item) => item.id}
       ></FlatList> */}
-      <WelcomeScreen></WelcomeScreen>
+      <AppTextInput placeholder="username" icon="email"></AppTextInput>
     </SafeAreaView>
   );
 }

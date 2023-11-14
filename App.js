@@ -7,6 +7,7 @@ import CreateUser from "./src/components/CreateUser";
 import DeleteUser from "./src/components/DeleteUser";
 import Card from "./src/components/Card";
 import colors from "./src/config/colors";
+import WelcomeScreen from "./src/screens/WelcomeScreen";
 
 export default function App() {
   const [people, setPeople] = useState([]);
@@ -32,7 +33,7 @@ export default function App() {
 
   return (
     <SafeAreaView style={styles.container}>
-      <CreateUser />
+      {/* <CreateUser />
       <View style={styles.cardContainer}>
         <Card title="Ceiling Lights" icon="lightbulb-outline"></Card>
         <Card title="Floor Lights" icon="lightbulb-outline"></Card>
@@ -41,7 +42,8 @@ export default function App() {
         data={people}
         renderItem={renderItem}
         keyExtractor={(item) => item.id}
-      ></FlatList>
+      ></FlatList> */}
+      <WelcomeScreen></WelcomeScreen>
     </SafeAreaView>
   );
 }

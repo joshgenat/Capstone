@@ -9,6 +9,8 @@ import Card from "./src/components/Card";
 import colors from "./src/config/colors";
 import WelcomeScreen from "./src/screens/WelcomeScreen";
 import AppTextInput from "./src/components/AppTextInput";
+import ListItem from "./src/components/ListItem";
+import ProfileScreen from "./src/screens/ProfileScreen";
 
 export default function App() {
   const [people, setPeople] = useState([]);
@@ -45,6 +47,7 @@ export default function App() {
         keyExtractor={(item) => item.id}
       ></FlatList> */}
       <AppTextInput placeholder="username" icon="email"></AppTextInput>
+      <ProfileScreen></ProfileScreen>
     </SafeAreaView>
   );
 }
@@ -52,7 +55,7 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: colors.white,
+    backgroundColor: colors.light,
     justifyContent: "center",
   },
   cardContainer: {

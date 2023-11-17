@@ -11,7 +11,6 @@ import WelcomeScreen from "./src/screens/WelcomeScreen";
 import AppTextInput from "./src/components/AppTextInput";
 import ListItem from "./src/components/ListItem";
 import ProfileScreen from "./src/screens/ProfileScreen";
-import AppPicker from "./src/components/AppPicker";
 import LoginScreen from "./src/screens/LoginScreen";
 
 export default function App() {

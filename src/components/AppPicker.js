@@ -4,7 +4,7 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 import colors from "../config/colors";
 
-function AppTextInput({ icon, ...otherProps }) {
+function AppPicker({ icon, ...otherProps }) {
   return (
     <View style={styles.container}>
       {icon && (
@@ -15,14 +15,13 @@ function AppTextInput({ icon, ...otherProps }) {
           style={styles.icon}
         ></MaterialCommunityIcons>
       )}
-      <TextInput style={styles.textInput} {...otherProps}></TextInput>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: colors.white,
+    backgroundColor: colors.light,
     borderRadius: 15,
     flexDirection: "row",
     padding: 15,
@@ -37,4 +36,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default AppTextInput;
+export default AppPicker;

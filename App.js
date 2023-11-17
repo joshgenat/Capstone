@@ -11,6 +11,8 @@ import WelcomeScreen from "./src/screens/WelcomeScreen";
 import AppTextInput from "./src/components/AppTextInput";
 import ListItem from "./src/components/ListItem";
 import ProfileScreen from "./src/screens/ProfileScreen";
+import AppPicker from "./src/components/AppPicker";
+import LoginScreen from "./src/screens/LoginScreen";
 
 export default function App() {
   const [people, setPeople] = useState([]);
@@ -46,8 +48,9 @@ export default function App() {
         renderItem={renderItem}
         keyExtractor={(item) => item.id}
       ></FlatList> */}
-      <AppTextInput placeholder="username" icon="email"></AppTextInput>
-      <ProfileScreen></ProfileScreen>
+      {/* <AppTextInput placeholder="username" icon="email"></AppTextInput> */}
+      {/* <ProfileScreen></ProfileScreen> */}
+      <LoginScreen></LoginScreen>
     </SafeAreaView>
   );
 }
@@ -56,7 +59,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: colors.light,
-    justifyContent: "center",
   },
   cardContainer: {
     flexDirection: "row",

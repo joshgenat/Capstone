@@ -12,6 +12,7 @@ import AppTextInput from "./src/components/AppTextInput";
 import ListItem from "./src/components/ListItem";
 import ProfileScreen from "./src/screens/ProfileScreen";
 import LoginScreen from "./src/screens/LoginScreen";
+import DashboardScreen from "./src/screens/DashboardScreen";
 
 export default function App() {
   const [people, setPeople] = useState([]);
@@ -37,19 +38,20 @@ export default function App() {
 
   return (
     <SafeAreaView style={styles.container}>
-      {/* <CreateUser />
-      <View style={styles.cardContainer}>
+      {/* <CreateUser /> */}
+      {/* <View style={styles.cardContainer}>
         <Card title="Ceiling Lights" icon="lightbulb-outline"></Card>
         <Card title="Floor Lights" icon="lightbulb-outline"></Card>
-      </View>
-      <FlatList
+      </View> */}
+      {/* <FlatList
         data={people}
         renderItem={renderItem}
         keyExtractor={(item) => item.id}
       ></FlatList> */}
       {/* <AppTextInput placeholder="username" icon="email"></AppTextInput> */}
       {/* <ProfileScreen></ProfileScreen> */}
-      <LoginScreen></LoginScreen>
+      {/* <LoginScreen></LoginScreen> */}
+      <DashboardScreen></DashboardScreen>
     </SafeAreaView>
   );
 }

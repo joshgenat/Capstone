@@ -13,6 +13,7 @@ import ListItem from "./src/components/ListItem";
 import ProfileScreen from "./src/screens/ProfileScreen";
 import LoginScreen from "./src/screens/LoginScreen";
 import DashboardScreen from "./src/screens/DashboardScreen";
+import Screen from "./src/components/Screen";
 
 export default function App() {
   const [people, setPeople] = useState([]);
@@ -37,7 +38,7 @@ export default function App() {
   );
 
   return (
-    <SafeAreaView style={styles.container}>
+    <Screen style={styles.container}>
       {/* <CreateUser /> */}
       {/* <View style={styles.cardContainer}>
         <Card title="Ceiling Lights" icon="lightbulb-outline"></Card>
@@ -49,10 +50,10 @@ export default function App() {
         keyExtractor={(item) => item.id}
       ></FlatList> */}
       {/* <AppTextInput placeholder="username" icon="email"></AppTextInput> */}
-      {/* <ProfileScreen></ProfileScreen> */}
+      <ProfileScreen></ProfileScreen>
       {/* <LoginScreen></LoginScreen> */}
-      <DashboardScreen></DashboardScreen>
-    </SafeAreaView>
+      {/* <DashboardScreen></DashboardScreen> */}
+    </Screen>
   );
 }
 

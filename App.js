@@ -1,19 +1,17 @@
 import React, { useState, useEffect } from "react";
-import { StyleSheet, SafeAreaView, Text, View, FlatList } from "react-native";
+import { FlatList, StyleSheet, Text, View } from "react-native";
 import { collection, onSnapshot } from "firebase/firestore";
 import { db } from "./src/config/firebase";
 
 import CreateUser from "./src/components/CreateUser";
 import DeleteUser from "./src/components/DeleteUser";
-import Card from "./src/components/Card";
 import colors from "./src/config/colors";
 import WelcomeScreen from "./src/screens/WelcomeScreen";
-import AppTextInput from "./src/components/AppTextInput";
-import ListItem from "./src/components/ListItem";
 import ProfileScreen from "./src/screens/ProfileScreen";
 import LoginScreen from "./src/screens/LoginScreen";
 import DashboardScreen from "./src/screens/DashboardScreen";
 import Screen from "./src/components/Screen";
+import Toggle from "./src/components/Toggle";
 
 export default function App() {
   const [people, setPeople] = useState([]);
@@ -39,18 +37,15 @@ export default function App() {
 
   return (
     <Screen style={styles.container}>
-      {/* <CreateUser /> */}
-      {/* <View style={styles.cardContainer}>
-        <Card title="Ceiling Lights" icon="lightbulb-outline"></Card>
-        <Card title="Floor Lights" icon="lightbulb-outline"></Card>
-      </View> */}
-      {/* <FlatList
+      <Toggle></Toggle>
+      {/* <CreateUser />
+      <FlatList
         data={people}
         renderItem={renderItem}
         keyExtractor={(item) => item.id}
       ></FlatList> */}
       {/* <AppTextInput placeholder="username" icon="email"></AppTextInput> */}
-      <ProfileScreen></ProfileScreen>
+      {/* <ProfileScreen></ProfileScreen> */}
       {/* <LoginScreen></LoginScreen> */}
       {/* <DashboardScreen></DashboardScreen> */}
     </Screen>
@@ -61,10 +56,5 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: colors.light,
-  },
-  cardContainer: {
-    flexDirection: "row",
-    justifyContent: "space-evenly",
-    paddingHorizontal: 10,
   },
 });

@@ -1,17 +1,33 @@
 import React, { useState } from "react";
 import { StyleSheet, View, Text, TextInput, Alert } from "react-native";
 import { collection, addDoc } from "firebase/firestore";
-import { db } from "../config/firebase";
+import { getDatabase, ref, set } from "firebase/database";
+
+import { db2 } from "../config/firebase";
 import AppButton from "./AppButton";
 
 export default function CreateUser() {
   const [user, setUser] = useState({ username: "" });
 
   function addUser() {
-    const userDb = collection(db, "users");
+    const userDb = collection(db2, "users");
     addDoc(userDb, {
       username: user.username,
     });
+  }
+
+  function create(user) {
+    const database = getDatabase();
+
+    set(ref(database, "users/" + user.username), {
+      username: user.username,
+    })
+      .then(() => {
+        alert("Successful");
+      })
+      .catch((error) => {
+        alert(error.message);
+      });
   }
 
   return (
@@ -21,7 +37,7 @@ export default function CreateUser() {
         value={user.username}
         onChangeText={(text) => setUser({ ...user, username: text })}
       ></TextInput>
-      <AppButton title="Create User" onPress={addUser}></AppButton>
+      <AppButton title="Create User" onPress={create}></AppButton>
     </View>
   );
 }

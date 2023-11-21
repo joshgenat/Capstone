@@ -7,11 +7,12 @@ import Screen from "../components/Screen";
 import colors from "../config/colors";
 
 const validationSchema = Yup.object().shape({
+  username: Yup.string().required().label("Username"),
   email: Yup.string().required().email().label("Email"),
   password: Yup.string().required().min(4).label("Password"),
 });
 
-function LoginScreen({ navigation }) {
+function RegisterScreen(props) {
   return (
     <Screen style={styles.container}>
       <Image
@@ -20,10 +21,18 @@ function LoginScreen({ navigation }) {
       ></Image>
 
       <AppForm
-        initialValues={{ email: "", password: "" }}
+        initialValues={{ username: "", email: "", password: "" }}
         onSubmit={(values) => console.log(values)}
         validationSchema={validationSchema}
       >
+        <AppFormField
+          autoCapitalize="words"
+          autoCorrect={false}
+          icon="account"
+          name="username"
+          placeholder="Username"
+          textContentType="username"
+        ></AppFormField>
         <AppFormField
           autoCapitalize="none"
           autoCorrect={false}
@@ -62,4 +71,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default LoginScreen;
+export default RegisterScreen;

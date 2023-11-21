@@ -18,14 +18,11 @@ function WelcomeScreen({ navigation }) {
         </AppText>
       </View>
       <View style={styles.buttonsContainer}>
-        <AppButton
-          title="Login"
-          onPress={() => navigation.navigate("Dashboard")}
-        />
+        <AppButton title="Login" onPress={() => navigation.navigate("Login")} />
         <AppButton
           title="Register"
           color="secondary"
-          onPress={() => navigation.navigate("Dashboard")}
+          onPress={() => navigation.navigate("Register")}
         />
       </View>
     </ImageBackground>

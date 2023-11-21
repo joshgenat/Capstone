@@ -12,6 +12,7 @@ import Toggle from "./src/components/Toggle";
 import AuthNavigator from "./src/navigation/AuthNavigator";
 import navigationTheme from "./src/navigation/navigationTheme";
 import AppNavigator from "./src/navigation/AppNavigator";
+import EditDeviceScreen from "./src/screens/EditDeviceScreen";
 
 export default function App() {
   const [people, setPeople] = useState([]);
@@ -37,19 +38,10 @@ export default function App() {
 
   return (
     <Screen style={styles.container}>
-      {/* //   <Toggle></Toggle>
-    //   <CreateUser />
-    //   <FlatList
-    //     data={people}
-    //     renderItem={renderItem}
-    //     keyExtractor={(item) => item.id}
-    //   ></FlatList>{" "}
-    //   <ProfileScreen></ProfileScreen>
-    //   <LoginScreen></LoginScreen>
-    //   <DashboardScreen></DashboardScreen> */}
-      <NavigationContainer theme={navigationTheme}>
-        <AppNavigator></AppNavigator>
-      </NavigationContainer>
+      {/* // <NavigationContainer theme={navigationTheme}>
+    //   <AppNavigator></AppNavigator>
+    // </NavigationContainer> */}
+      <EditDeviceScreen></EditDeviceScreen>
     </Screen>
   );
 }

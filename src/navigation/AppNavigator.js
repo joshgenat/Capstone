@@ -13,6 +13,7 @@ const AppNavigator = ({ color }) => (
       name="Home"
       component={DashboardScreen}
       options={{
+        tabBarLabel: "Home",
         tabBarIcon: ({ color }) => (
           <MaterialCommunityIcons name="home" size={25} color={color} />
         ),

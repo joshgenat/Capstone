@@ -15,6 +15,7 @@ import AppNavigator from "./src/navigation/AppNavigator";
 import EditDeviceScreen from "./src/screens/EditDeviceScreen";
 import SetupDeviceScreen from "./src/screens/SetupDeviceScreen";
 import SearchDevice from "./src/screens/SearchDevice";
+import AnalyticsScreen from "./src/screens/AnalyticsScreen";
 
 export default function App() {
   const [people, setPeople] = useState([]);
@@ -40,11 +41,11 @@ export default function App() {
 
   return (
     <Screen style={styles.container}>
-      {/* // <NavigationContainer theme={navigationTheme}>
-    //   <AppNavigator></AppNavigator>
-    // </NavigationContainer> */}
-      <SearchDevice></SearchDevice>
+      <AnalyticsScreen></AnalyticsScreen>
     </Screen>
+    // <NavigationContainer theme={navigationTheme}>
+    //   <AppNavigator></AppNavigator>
+    // </NavigationContainer>
   );
 }
 

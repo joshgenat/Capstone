@@ -16,6 +16,7 @@ import EditDeviceScreen from "./src/screens/EditDeviceScreen";
 import SetupDeviceScreen from "./src/screens/SetupDeviceScreen";
 import SearchDevice from "./src/screens/SearchDevice";
 import AnalyticsScreen from "./src/screens/AnalyticsScreen";
+import AppBarChart from "./src/components/AppBarChart";
 
 export default function App() {
   const [people, setPeople] = useState([]);

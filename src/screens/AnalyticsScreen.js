@@ -4,15 +4,18 @@ import Screen from "../components/Screen";
 import ListItem from "../components/ListItem";
 import AppText from "../components/AppText";
 import CardWide from "../components/CardWide";
+import colors from "../config/colors";
+import ListItemSeperator from "../components/ListItemSeperator";
 
 function AnalyticsScreen(props) {
   return (
     <Screen style={styles.container}>
       <CardWide
-        title="Create a Routine"
         subTextLeft="Total Usage Time"
         subTextRight="13h 25min"
         style={styles.card}
+        chart
+        toggle
       ></CardWide>
       <AppText style={styles.sectionText}>Most Used</AppText>
       <ListItem
@@ -20,6 +23,7 @@ function AnalyticsScreen(props) {
         icon="lightbulb-outline"
         rightText="6h 25min"
       ></ListItem>
+      <ListItemSeperator></ListItemSeperator>
       <ListItem
         title="Floor Lights"
         icon="lightbulb-outline"
@@ -30,7 +34,9 @@ function AnalyticsScreen(props) {
 }
 
 const styles = StyleSheet.create({
-  container: {},
+  container: {
+    backgroundColor: colors.light,
+  },
   sectionText: {
     marginLeft: 20,
   },

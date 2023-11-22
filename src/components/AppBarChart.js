@@ -38,7 +38,7 @@ function AppBarChart(props) {
       <LineChart
         data={data}
         width={screenWidth} // from react-native
-        height={180}
+        height={150}
         yAxisSuffix="h"
         yAxisInterval={1} // optional, defaults to 1
         chartConfig={chartConfig}

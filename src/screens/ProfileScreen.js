@@ -5,6 +5,7 @@ import ListItem from "../components/ListItem";
 import Screen from "../components/Screen";
 import ListItemSeperator from "../components/ListItemSeperator";
 import useLocation from "../hooks/useLocation";
+import colors from "../config/colors";
 
 function ProfileScreen(props) {
   const location = useLocation();
@@ -24,27 +25,15 @@ function ProfileScreen(props) {
   ];
 
   return (
-    <Screen>
-      <View style={styles.container}>
+    <Screen style={styles.container}>
+      <View style={styles.sections}>
         <ListItem
           title="Josh"
           subTitle="josh@gmail.com"
           icon="account"
         ></ListItem>
       </View>
-      <View style={styles.container}>
-        {/* <FlatList
-          data={menuItems}
-          keyExtractor={(menuItem) => menuItem.title}
-          ItemSeparatorComponent={ListItemSeperator}
-          renderItem={({ item }) => (
-            <ListItem
-              title={item.title}
-              icon={item.icon}
-              toggleIcon={item.toggleIcon}
-            ></ListItem>
-          )}
-        /> */}
+      <View style={styles.sections}>
         <ListItem
           title="Notifications"
           icon="bell"
@@ -58,7 +47,7 @@ function ProfileScreen(props) {
           onPress={(values) => console.log(location)}
         ></ListItem>
       </View>
-      <View style={styles.container}>
+      <View>
         <ListItem title="Sign Out" icon="logout"></ListItem>
       </View>
     </Screen>
@@ -67,7 +56,10 @@ function ProfileScreen(props) {
 
 const styles = StyleSheet.create({
   container: {
-    marginVertical: 20,
+    backgroundColor: colors.light,
+  },
+  sections: {
+    marginBottom: 30,
   },
 });
 

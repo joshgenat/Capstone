@@ -6,18 +6,28 @@ import colors from "../config/colors";
 import AppText from "./AppText";
 import AppBarChart from "./AppBarChart";
 
-function CardWide({ title, icon, subTextLeft, subTextRight, style }) {
+function CardWide({
+  title,
+  icon,
+  subTextLeft,
+  subTextRight,
+  style,
+  chart,
+  toggle,
+}) {
   return (
     <View style={[styles.card, style]}>
       <View style={styles.contentContainer}>
-        {/* <MaterialCommunityIcons name={icon} size={50} />
-        <Text style={styles.title}>{title}</Text> */}
-        <AppBarChart></AppBarChart>
+        <Text style={styles.title}>{title}</Text>
+        <MaterialCommunityIcons name={icon} size={40} />
+        {chart && <AppBarChart></AppBarChart>}
       </View>
-      <View style={styles.toggleContainer}>
-        <AppText style={styles.subTextLeft}>{subTextLeft}</AppText>
-        <AppText>{subTextRight}</AppText>
-      </View>
+      {toggle && (
+        <View style={styles.toggleContainer}>
+          <AppText style={styles.subTextLeft}>{subTextLeft}</AppText>
+          <AppText>{subTextRight}</AppText>
+        </View>
+      )}
     </View>
   );
 }
@@ -43,13 +53,15 @@ const styles = StyleSheet.create({
   contentContainer: {
     alignItems: "center", // Center the icon and title
     justifyContent: "center", // Center the icon and title
-    padding: 20,
+    padding: 10,
     flex: 5,
     overflow: "hidden",
   },
   title: {
     color: colors.black, // Title color
-    marginVertical: 20, // Space between icon and title
+    fontSize: 20,
+    fontWeight: 700,
+    marginBottom: 10,
   },
   toggleContainer: {
     padding: 10,

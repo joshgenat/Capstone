@@ -56,7 +56,7 @@ function DashboardScreen(props) {
 const styles = StyleSheet.create({
   screen: {
     padding: 20,
-    backgroundColor: colors.white,
+    backgroundColor: colors.light,
   },
   columnWrapperStyle: {
     padding: 15,

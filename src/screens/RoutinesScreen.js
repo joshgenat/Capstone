@@ -18,7 +18,8 @@ function RoutinesScreen(props) {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: colors.light,
+    marginTop: 20,
+    backgroundColor: colors.white,
   },
   text: {
     marginTop: 20,

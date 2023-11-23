@@ -7,18 +7,26 @@ import AnalyticsScreen from "../screens/AnalyticsScreen";
 import DashboardScreen from "../screens/DashboardScreen";
 import ProfileScreen from "../screens/ProfileScreen";
 import RoutinesScreen from "../screens/RoutinesScreen";
+import colors from "../config/colors";
 
 const Tab = createBottomTabNavigator();
 
 const AppNavigator = () => (
   <Tab.Navigator
     screenOptions={({ route }) => ({
-      headerShown: true,
-      tabBarActiveTintColor: "tomato",
+      tabBarActiveTintColor: colors.primary,
+      tabBarInactiveTintColor: colors.black,
       headerTitleStyle: {
-        fontSize: 30,
+        fontSize: 28,
         paddingHorizontal: 20,
       },
+      headerStyle: {
+        backgroundColor: colors.light,
+      },
+      tabBarStyle: {
+        backgroundColor: colors.light,
+      },
+
       headerTitleAlign: "left",
       headerRight: () =>
         route.name === "Home" || route.name === "Routines" ? (

@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
   card: {
     borderRadius: 15,
     backgroundColor: colors.light,
-    marginHorizontal: 25,
+    marginHorizontal: 20,
     height: 250,
     ...Platform.select({
       ios: {

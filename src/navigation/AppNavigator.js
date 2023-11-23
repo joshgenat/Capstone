@@ -1,24 +1,44 @@
 import React from "react";
-import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { TouchableOpacity, View } from "react-native";
 
+import AnalyticsScreen from "../screens/AnalyticsScreen";
 import DashboardScreen from "../screens/DashboardScreen";
 import ProfileScreen from "../screens/ProfileScreen";
-import AnalyticsScreen from "../screens/AnalyticsScreen";
 import RoutinesScreen from "../screens/RoutinesScreen";
 
-const Tab = createMaterialBottomTabNavigator();
+const Tab = createBottomTabNavigator();
 
-const AppNavigator = ({ color }) => (
-  <Tab.Navigator activeColor="tomato" inactiveColor="dodgerblue">
+const AppNavigator = () => (
+  <Tab.Navigator
+    screenOptions={({ route }) => ({
+      headerShown: true,
+      tabBarActiveTintColor: "tomato",
+      headerTitleStyle: {
+        fontSize: 30,
+        paddingHorizontal: 20,
+      },
+      headerTitleAlign: "left",
+      headerRight: () =>
+        route.name === "Home" || route.name === "Routines" ? (
+          <View style={{ marginRight: 20 }}>
+            <TouchableOpacity onPress={() => console.log("Icon Pressed")}>
+              <MaterialCommunityIcons name="plus" size={30} color="black" />
+            </TouchableOpacity>
+          </View>
+        ) : null,
+    })}
+  >
     <Tab.Screen
       name="Home"
       component={DashboardScreen}
       options={{
         tabBarLabel: "Home",
         tabBarIcon: ({ color }) => (
-          <MaterialCommunityIcons name="home" size={25} color={color} />
+          <MaterialCommunityIcons name="home" size={30} color={color} />
         ),
+        headerTitle: "Your Dashboard",
       }}
     ></Tab.Screen>
     <Tab.Screen

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { FlatList, StyleSheet, Text, View } from "react-native";
+import { FlatList, StatusBar, StyleSheet, Text, View } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { collection, onSnapshot } from "firebase/firestore";
 import { db } from "./src/config/firebase";
@@ -45,9 +45,12 @@ export default function App() {
     // <Screen style={styles.container}>
     //   <RoutinesScreen></RoutinesScreen>
     // </Screen>
-    <NavigationContainer theme={navigationTheme}>
-      <AppNavigator></AppNavigator>
-    </NavigationContainer>
+    <>
+      <StatusBar barStyle="dark-content"></StatusBar>
+      <NavigationContainer theme={navigationTheme}>
+        <AppNavigator></AppNavigator>
+      </NavigationContainer>
+    </>
   );
 }
 

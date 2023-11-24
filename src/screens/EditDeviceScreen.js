@@ -34,8 +34,8 @@ function EditDeviceScreen(props) {
         </AppForm>
         <AppText>Manufacturer: </AppText>
         <AppText>Model: </AppText>
-        <AppButton title="Save Changes" color="primary"></AppButton>
       </View>
+      <AppButton title="Save Changes" color="secondary"></AppButton>
       <AppButton title="Delete Device" color="danger"></AppButton>
     </Screen>
   );

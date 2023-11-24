@@ -5,7 +5,7 @@ import Screen from "../components/Screen";
 import Card from "../components/Card";
 import colors from "../config/colors";
 
-function DashboardScreen(props) {
+function DashboardScreen({ navigation }) {
   const devices = [
     {
       id: 1,
@@ -37,7 +37,13 @@ function DashboardScreen(props) {
         <View style={{ width: "45%", height: 250, marginHorizontal: 25 }} />
       );
     }
-    return <Card title={item.title} icon={item.icon} />;
+    return (
+      <Card
+        title={item.title}
+        icon={item.icon}
+        onPress={() => navigation.navigate("Edit", { deviceId: item.id })}
+      />
+    );
   };
 
   return (

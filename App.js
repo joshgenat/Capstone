@@ -14,10 +14,6 @@ import navigationTheme from "./src/navigation/navigationTheme";
 import AppNavigator from "./src/navigation/AppNavigator";
 import EditDeviceScreen from "./src/screens/EditDeviceScreen";
 import SetupDeviceScreen from "./src/screens/SetupDeviceScreen";
-import SearchDevice from "./src/screens/SearchDevice";
-import AnalyticsScreen from "./src/screens/AnalyticsScreen";
-import AppBarChart from "./src/components/AppBarChart";
-import RoutinesScreen from "./src/screens/RoutinesScreen";
 
 export default function App() {
   const [people, setPeople] = useState([]);

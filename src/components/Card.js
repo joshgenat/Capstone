@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { View, StyleSheet, Text, Switch } from "react-native";
+import { View, StyleSheet, Text, Switch, TouchableOpacity } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 import colors from "../config/colors";
 
-function Card({ title, icon }) {
+function Card({ title, icon, onPress }) {
   const [isEnabled, setIsEnabled] = useState(false);
   const [lights, setLights] = useState(
     isEnabled ? colors.primary : colors.black
@@ -21,8 +21,10 @@ function Card({ title, icon }) {
   return (
     <View style={styles.card}>
       <View style={styles.contentContainer}>
-        <MaterialCommunityIcons name={icon} size={50} color={lights} />
-        <Text style={styles.title}>{title}</Text>
+        <TouchableOpacity onPress={onPress} style={styles.touchableArea}>
+          <MaterialCommunityIcons name={icon} size={50} color={lights} />
+          <Text style={styles.title}>{title}</Text>
+        </TouchableOpacity>
       </View>
       <View style={styles.toggleContainer}>
         <Switch value={isEnabled} onValueChange={toggleSwitch} />
@@ -54,7 +56,7 @@ const styles = StyleSheet.create({
     alignItems: "center", // Center the icon and title
     justifyContent: "center", // Center the icon and title
     padding: 15,
-    flex: 5,
+    flex: 4,
   },
   title: {
     color: colors.black, // Title color
@@ -68,6 +70,10 @@ const styles = StyleSheet.create({
     flex: 1,
     borderBottomLeftRadius: 15,
     borderBottomRightRadius: 15,
+  },
+  touchableArea: {
+    justifyContent: "center",
+    alignItems: "center",
   },
 });
 

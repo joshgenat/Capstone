@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import { View, StyleSheet } from "react-native";
+import { StyleSheet } from "react-native";
 import Screen from "../components/Screen";
 import AppText from "../components/AppText";
 import ActivityIndicator from "../components/ActivityIndicator";
 
-function SearchDevice(props) {
+function SearchDeviceScreen(props) {
   const [loading, setLoading] = useState(false);
 
   const loadDevices = async () => {
@@ -29,4 +29,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default SearchDevice;
+export default SearchDeviceScreen;

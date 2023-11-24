@@ -20,12 +20,12 @@ function Card({ title, icon, onPress }) {
 
   return (
     <View style={styles.card}>
-      <View style={styles.contentContainer}>
-        <TouchableOpacity onPress={onPress} style={styles.touchableArea}>
+      <TouchableOpacity onPress={onPress} style={styles.touchableArea}>
+        <View style={styles.contentContainer}>
           <MaterialCommunityIcons name={icon} size={50} color={lights} />
           <Text style={styles.title}>{title}</Text>
-        </TouchableOpacity>
-      </View>
+        </View>
+      </TouchableOpacity>
       <View style={styles.toggleContainer}>
         <Switch value={isEnabled} onValueChange={toggleSwitch} />
       </View>
@@ -56,7 +56,6 @@ const styles = StyleSheet.create({
     alignItems: "center", // Center the icon and title
     justifyContent: "center", // Center the icon and title
     padding: 15,
-    flex: 4,
   },
   title: {
     color: colors.black, // Title color
@@ -72,6 +71,7 @@ const styles = StyleSheet.create({
     borderBottomRightRadius: 15,
   },
   touchableArea: {
+    flex: 5,
     justifyContent: "center",
     alignItems: "center",
   },

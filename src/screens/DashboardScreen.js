@@ -41,7 +41,9 @@ function DashboardScreen({ navigation }) {
       <Card
         title={item.title}
         icon={item.icon}
-        onPress={() => navigation.navigate("Edit", { deviceId: item.id })}
+        onPress={() =>
+          navigation.navigate("Edit Device", { deviceName: item.title })
+        }
       />
     );
   };

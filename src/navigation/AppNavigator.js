@@ -17,41 +17,14 @@ const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
 
 const AppNavigator = () => (
-  <Tab.Navigator
-    screenOptions={({ navigation, route }) => ({
-      tabBarActiveTintColor: colors.primary,
-      tabBarInactiveTintColor: colors.black,
-      headerTitleStyle: {
-        fontSize: 28,
-        paddingHorizontal: 20,
-      },
-      headerStyle: {
-        backgroundColor: colors.light,
-      },
-      tabBarStyle: {
-        backgroundColor: colors.light,
-      },
-
-      headerTitleAlign: "left",
-      headerRight: () =>
-        route.name === "Home" || route.name === "Routines" ? (
-          <View style={{ marginRight: 20 }}>
-            <TouchableOpacity onPress={() => navigation.navigate("Search")}>
-              <MaterialCommunityIcons name="plus" size={30} color="black" />
-            </TouchableOpacity>
-          </View>
-        ) : null,
-    })}
-  >
+  <Tab.Navigator screenOptions={{ headerShown: false }}>
     <Tab.Screen
       name="Home"
       component={DashboardNavigator}
       options={{
-        tabBarLabel: "Home",
         tabBarIcon: ({ color }) => (
           <MaterialCommunityIcons name="home" size={30} color={color} />
         ),
-        headerTitle: "Your Dashboard",
       }}
     ></Tab.Screen>
     <Tab.Screen

@@ -13,7 +13,12 @@ const validationSchema = Yup.object().shape({
   deviceName: Yup.string().required().label("Device Name"),
 });
 
-function EditDeviceScreen(props) {
+function EditDeviceScreen({ route }) {
+  const { deviceName } = route.params; // Extract deviceName from route.params
+
+  const placeholderText = deviceName ? `${deviceName}` : "Enter Device Name";
+
+  console.log(deviceName);
   return (
     <Screen style={styles.container}>
       <View style={styles.icon}>
@@ -21,7 +26,7 @@ function EditDeviceScreen(props) {
       </View>
       <View style={styles.content}>
         <AppForm
-          initialValues={{ deviceName: "" }}
+          initialValues={{ deviceName }}
           onSubmit={(values) => console.log(values)}
           validationSchema={validationSchema}
         >
@@ -29,7 +34,7 @@ function EditDeviceScreen(props) {
             autoCapitalize="none"
             autoCorrect={false}
             name="deviceName"
-            placeholder="Ceiling Lights"
+            placeholder={placeholderText}
           ></AppFormField>
         </AppForm>
         <AppText>Manufacturer: </AppText>

@@ -14,6 +14,7 @@ import navigationTheme from "./src/navigation/navigationTheme";
 import AppNavigator from "./src/navigation/AppNavigator";
 import EditDeviceScreen from "./src/screens/EditDeviceScreen";
 import SetupDeviceScreen from "./src/screens/SetupDeviceScreen";
+import RoutinesScreen from "./src/screens/RoutinesScreen";
 
 export default function App() {
   const [people, setPeople] = useState([]);
@@ -39,7 +40,7 @@ export default function App() {
 
   return (
     // <Screen style={styles.container}>
-    //   <RoutinesScreen></RoutinesScreen>
+    // <RoutinesScreen></RoutinesScreen>
     // </Screen>
     <>
       <StatusBar barStyle="dark-content"></StatusBar>

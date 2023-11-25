@@ -7,7 +7,8 @@ import EditDeviceScreen from "../screens/EditDeviceScreen";
 import SearchDeviceScreen from "../screens/SearchDeviceScreen";
 import colors from "../config/colors";
 import AppText from "../components/AppText";
-import ProfileScreen from "../screens/ProfileScreen";
+import RoutinesScreen from "../screens/RoutinesScreen";
+import AnalyticsScreen from "../screens/AnalyticsScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -19,7 +20,7 @@ function CustomHeaderTitle({ title }) {
   );
 }
 
-const SettingsNavigator = () => (
+const AnalyticsNavigator = () => (
   <Stack.Navigator
     screenOptions={({ navigation, route }) => ({
       headerTitleStyle: {
@@ -29,14 +30,12 @@ const SettingsNavigator = () => (
         backgroundColor: colors.light,
       },
       headerBackTitle: "Back",
-
       headerTitle: () => <CustomHeaderTitle title={route.name} />,
     })}
   >
-    <Stack.Screen name="Settings" component={ProfileScreen} />
+    <Stack.Screen name="Analytics" component={AnalyticsScreen} />
     <Stack.Screen name="Edit Device" component={EditDeviceScreen} />
-    <Stack.Screen name="Search" component={SearchDeviceScreen} />
   </Stack.Navigator>
 );
 
-export default SettingsNavigator;
+export default AnalyticsNavigator;

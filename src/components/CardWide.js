@@ -14,6 +14,7 @@ function CardWide({
   style,
   chart,
   toggle,
+  height,
 }) {
   return (
     <View style={[styles.card, style]}>
@@ -37,7 +38,6 @@ const styles = StyleSheet.create({
     borderRadius: 15,
     backgroundColor: colors.light,
     marginHorizontal: 20,
-    height: 250,
     ...Platform.select({
       ios: {
         shadowColor: "black",

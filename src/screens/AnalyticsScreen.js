@@ -42,6 +42,7 @@ const styles = StyleSheet.create({
   },
   card: {
     marginBottom: 30,
+    height: 250,
   },
 });
 

@@ -14,6 +14,7 @@ import colors from "../config/colors";
 import DashboardNavigator from "./DashboardNavigator";
 import RoutinesNavigator from "./RoutinesNavigator";
 import SettingsNavigator from "./SettingsNavigator";
+import AnalyticsNavigator from "./AnalyticsNavigator";
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -33,7 +34,7 @@ const AppNavigator = () => (
     ></Tab.Screen>
     <Tab.Screen
       name="AnalyticsTab"
-      component={AnalyticsScreen}
+      component={AnalyticsNavigator}
       options={{
         tabBarIcon: ({ color }) => (
           <MaterialCommunityIcons name="chart-bar" size={25} color={color} />

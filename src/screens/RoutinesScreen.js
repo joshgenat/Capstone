@@ -9,7 +9,11 @@ import colors from "../config/colors";
 function RoutinesScreen(props) {
   return (
     <Screen style={styles.container}>
-      <CardWide title="Create a Routine" icon="plus"></CardWide>
+      <CardWide
+        title="Create a Routine"
+        icon="plus"
+        style={{ height: 150 }}
+      ></CardWide>
       <AppText style={styles.text}>
         Have your accessories react to changes at home.
       </AppText>

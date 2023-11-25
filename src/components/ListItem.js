@@ -1,14 +1,13 @@
 import React from "react";
-import { View, StyleSheet, TouchableOpacity } from "react-native";
+import { View, StyleSheet, TouchableHighlight } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 import AppText from "./AppText";
 import colors from "../config/colors";
 
 function ListItem({ title, subTitle, icon, toggleIcon, rightText, onPress }) {
-  console.log();
   return (
-    <TouchableOpacity underlayColor={colors.light} onPress={onPress}>
+    <TouchableHighlight underlayColor={colors.light} onPress={onPress}>
       <View style={styles.container}>
         <MaterialCommunityIcons
           size={30}
@@ -22,7 +21,7 @@ function ListItem({ title, subTitle, icon, toggleIcon, rightText, onPress }) {
         {rightText && <AppText>{rightText}</AppText>}
         {toggleIcon && <MaterialCommunityIcons name={toggleIcon} size={25} />}
       </View>
-    </TouchableOpacity>
+    </TouchableHighlight>
   );
 }
 

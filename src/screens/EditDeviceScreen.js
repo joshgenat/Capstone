@@ -4,7 +4,7 @@ import * as Yup from "yup";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 import Screen from "../components/Screen";
-import { AppForm, AppFormField } from "../components/forms";
+import { AppForm, AppFormField, SubmitButton } from "../components/forms";
 import colors from "../config/colors";
 import AppText from "../components/AppText";
 import AppButton from "../components/AppButton";
@@ -24,24 +24,27 @@ function EditDeviceScreen({ route }) {
       <View style={styles.icon}>
         <MaterialCommunityIcons name="lightbulb-outline" size={50} />
       </View>
-      <View style={styles.content}>
-        <AppForm
-          initialValues={{ deviceName }}
-          onSubmit={(values) => console.log(values)}
-          validationSchema={validationSchema}
-        >
+      <AppForm
+        initialValues={{ deviceName }}
+        onSubmit={(values) => console.log(values)}
+        validationSchema={validationSchema}
+      >
+        <View style={styles.content}>
           <AppFormField
             autoCapitalize="none"
             autoCorrect={false}
             name="deviceName"
             placeholder={placeholderText}
           ></AppFormField>
-        </AppForm>
-        <AppText>Manufacturer: </AppText>
-        <AppText>Model: </AppText>
-      </View>
-      <AppButton title="Save Changes" color="secondary"></AppButton>
-      <AppButton title="Delete Device" color="danger"></AppButton>
+
+          <AppText>Manufacturer: </AppText>
+          <AppText>Model: </AppText>
+        </View>
+        <View style={styles.button}>
+          <SubmitButton title="Save Changes" color="secondary"></SubmitButton>
+          <SubmitButton title="Delete Device" color="danger"></SubmitButton>
+        </View>
+      </AppForm>
     </Screen>
   );
 }
@@ -49,14 +52,19 @@ function EditDeviceScreen({ route }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 20,
     backgroundColor: colors.white,
+    marginHorizontal: 10,
   },
   content: {
     flex: 1,
   },
   icon: {
     alignItems: "center", // Center the icon horizontally},
+    marginBottom: 20,
+  },
+
+  button: {
+    alignItems: "center",
     marginBottom: 20,
   },
 });

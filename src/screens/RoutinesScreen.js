@@ -6,13 +6,14 @@ import CardWide from "../components/CardWide";
 import AppText from "../components/AppText";
 import colors from "../config/colors";
 
-function RoutinesScreen(props) {
+function RoutinesScreen({ navigation }) {
   return (
     <Screen style={styles.container}>
       <CardWide
         title="Create a Routine"
         icon="plus"
         style={{ height: 150 }}
+        onPress={() => navigation.navigate("Create Routine")}
       ></CardWide>
       <AppText style={styles.text}>
         Have your accessories react to changes at home.

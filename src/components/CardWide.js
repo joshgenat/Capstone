@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { View, StyleSheet, Text } from "react-native";
+import { View, StyleSheet, Text, TouchableOpacity } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 import colors from "../config/colors";
@@ -14,15 +14,17 @@ function CardWide({
   style,
   chart,
   toggle,
-  height,
+  onPress,
 }) {
   return (
     <View style={[styles.card, style]}>
-      <View style={styles.contentContainer}>
-        <Text style={styles.title}>{title}</Text>
-        <MaterialCommunityIcons name={icon} size={40} />
-        {chart && <AppBarChart></AppBarChart>}
-      </View>
+      <TouchableOpacity onPress={onPress} style={styles.touchableArea}>
+        <View style={styles.contentContainer}>
+          <Text style={styles.title}>{title}</Text>
+          <MaterialCommunityIcons name={icon} size={40} />
+          {chart && <AppBarChart></AppBarChart>}
+        </View>
+      </TouchableOpacity>
       {toggle && (
         <View style={styles.toggleContainer}>
           <AppText style={styles.subTextLeft}>{subTextLeft}</AppText>
@@ -73,6 +75,11 @@ const styles = StyleSheet.create({
   },
   subTextLeft: {
     fontWeight: 700,
+  },
+  touchableArea: {
+    flex: 5,
+    justifyContent: "center",
+    alignItems: "center",
   },
 });
 

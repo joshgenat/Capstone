@@ -26,7 +26,7 @@ const styles = StyleSheet.create({
     borderRadius: 15,
     flexDirection: "row",
     padding: 15,
-    marginVertical: 10,
+    marginHorizontal: 20,
   },
   textInput: {
     fontSize: 18,

@@ -49,15 +49,12 @@ function LoginScreen({ navigation }) {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    padding: 10,
-    backgroundColor: colors.light,
-  },
+  container: {},
   logo: {
     width: 80,
     height: 80,
     alignSelf: "center",
-    marginTop: 50,
+    marginTop: 20,
     marginBottom: 20,
   },
 });

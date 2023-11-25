@@ -4,14 +4,17 @@ import Screen from "../components/Screen";
 import AppText from "../components/AppText";
 import AppButton from "../components/AppButton";
 
-function SetupDeviceScreen(props) {
+function SetupDeviceScreen({ navigation }) {
   return (
     <Screen style={styles.container}>
       <AppText style={styles.text}>
         Make sure the device you want to add is connected to power and ready to
         pair.
       </AppText>
-      <AppButton title="Search"></AppButton>
+      <AppButton
+        title="Search"
+        onPress={() => navigation.navigate("Pair Device")}
+      ></AppButton>
     </Screen>
   );
 }

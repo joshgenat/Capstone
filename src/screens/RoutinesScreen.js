@@ -1,5 +1,6 @@
 import React from "react";
-import { View, StyleSheet } from "react-native";
+import { StyleSheet } from "react-native";
+
 import Screen from "../components/Screen";
 import CardWide from "../components/CardWide";
 import AppText from "../components/AppText";

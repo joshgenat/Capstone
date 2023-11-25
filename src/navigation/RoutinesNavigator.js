@@ -3,13 +3,11 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { TouchableOpacity, View } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
-import DashboardScreen from "../screens/DashboardScreen";
 import EditDeviceScreen from "../screens/EditDeviceScreen";
 import SearchDeviceScreen from "../screens/SearchDeviceScreen";
 import colors from "../config/colors";
 import AppText from "../components/AppText";
-import SetupDeviceScreen from "../screens/SetupDeviceScreen";
-import PairDeviceScreen from "../screens/PairDeviceScreen";
+import RoutinesScreen from "../screens/RoutinesScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -21,7 +19,7 @@ function CustomHeaderTitle({ title }) {
   );
 }
 
-const DashboardNavigator = () => (
+const RoutinesNavigator = () => (
   <Stack.Navigator
     screenOptions={({ navigation, route }) => ({
       headerTitleStyle: {
@@ -33,7 +31,7 @@ const DashboardNavigator = () => (
       headerBackTitle: "Back",
       headerRight: () => (
         <View style={{ marginRight: 10 }}>
-          <TouchableOpacity onPress={() => navigation.navigate("Setup Device")}>
+          <TouchableOpacity onPress={() => navigation.navigate("Search")}>
             <MaterialCommunityIcons name="plus" size={25} color="black" />
           </TouchableOpacity>
         </View>
@@ -42,12 +40,10 @@ const DashboardNavigator = () => (
       headerTitle: () => <CustomHeaderTitle title={route.name} />,
     })}
   >
-    <Stack.Screen name="Your Dashboard" component={DashboardScreen} />
+    <Stack.Screen name="Routines" component={RoutinesScreen} />
     <Stack.Screen name="Edit Device" component={EditDeviceScreen} />
-    <Stack.Screen name="Setup Device" component={SetupDeviceScreen} />
-    <Stack.Screen name="Search Device" component={SearchDeviceScreen} />
-    <Stack.Screen name="Pair Device" component={PairDeviceScreen} />
+    <Stack.Screen name="Search" component={SearchDeviceScreen} />
   </Stack.Navigator>
 );
 
-export default DashboardNavigator;
+export default RoutinesNavigator;

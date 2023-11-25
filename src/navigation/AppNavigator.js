@@ -12,6 +12,7 @@ import ProfileScreen from "../screens/ProfileScreen";
 import RoutinesScreen from "../screens/RoutinesScreen";
 import colors from "../config/colors";
 import DashboardNavigator from "./DashboardNavigator";
+import RoutinesNavigator from "./RoutinesNavigator";
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -19,39 +20,46 @@ const Stack = createStackNavigator();
 const AppNavigator = () => (
   <Tab.Navigator screenOptions={{ headerShown: false }}>
     <Tab.Screen
-      name="Home"
+      name="HomeTab"
       component={DashboardNavigator}
       options={{
         tabBarIcon: ({ color }) => (
           <MaterialCommunityIcons name="home" size={30} color={color} />
         ),
+
+        tabBarLabel: "Home",
       }}
     ></Tab.Screen>
     <Tab.Screen
-      name="Analytics"
+      name="AnalyticsTab"
       component={AnalyticsScreen}
       options={{
         tabBarIcon: ({ color }) => (
           <MaterialCommunityIcons name="chart-bar" size={25} color={color} />
         ),
+
+        tabBarLabel: "Analytics",
       }}
     ></Tab.Screen>
     <Tab.Screen
-      name="Routines"
-      component={RoutinesScreen}
+      name="RoutinesTab"
+      component={RoutinesNavigator}
       options={{
         tabBarIcon: ({ color }) => (
           <MaterialCommunityIcons name="clock" size={25} color={color} />
         ),
+        tabBarLabel: "Routines",
       }}
     ></Tab.Screen>
     <Tab.Screen
-      name="Settings"
+      name="SettingsTab"
       component={ProfileScreen}
       options={{
         tabBarIcon: ({ color }) => (
           <MaterialCommunityIcons name="cog" size={25} color={color} />
         ),
+
+        tabBarLabel: "Settings",
       }}
     ></Tab.Screen>
   </Tab.Navigator>

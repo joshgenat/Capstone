@@ -22,7 +22,7 @@ function AppTextInput({ icon, ...otherProps }) {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: colors.white,
+    backgroundColor: colors.light,
     borderRadius: 15,
     flexDirection: "row",
     padding: 15,

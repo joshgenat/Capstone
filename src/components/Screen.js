@@ -12,6 +12,7 @@ function Screen({ children, style }) {
 
 const styles = StyleSheet.create({
   screen: {
+    marginTop: 20,
     paddingTop: Constants.statusBarHeight,
     flex: 1,
   },

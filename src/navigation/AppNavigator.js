@@ -13,6 +13,7 @@ import RoutinesScreen from "../screens/RoutinesScreen";
 import colors from "../config/colors";
 import DashboardNavigator from "./DashboardNavigator";
 import RoutinesNavigator from "./RoutinesNavigator";
+import SettingsNavigator from "./SettingsNavigator";
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -53,7 +54,7 @@ const AppNavigator = () => (
     ></Tab.Screen>
     <Tab.Screen
       name="SettingsTab"
-      component={ProfileScreen}
+      component={SettingsNavigator}
       options={{
         tabBarIcon: ({ color }) => (
           <MaterialCommunityIcons name="cog" size={25} color={color} />

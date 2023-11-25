@@ -63,7 +63,6 @@ function DashboardScreen({ navigation }) {
 
 const styles = StyleSheet.create({
   screen: {
-    marginTop: 10,
     backgroundColor: colors.white,
   },
   columnWrapperStyle: {

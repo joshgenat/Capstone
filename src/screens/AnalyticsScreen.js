@@ -35,7 +35,6 @@ function AnalyticsScreen(props) {
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 20,
     backgroundColor: colors.white,
   },
   sectionText: {

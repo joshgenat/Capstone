@@ -56,7 +56,6 @@ function ProfileScreen(props) {
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 15,
     backgroundColor: colors.white,
   },
   sections: {

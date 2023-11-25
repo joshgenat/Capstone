@@ -7,7 +7,7 @@ import ListItemSeperator from "../components/ListItemSeperator";
 import useLocation from "../hooks/useLocation";
 import colors from "../config/colors";
 
-function ProfileScreen(props) {
+function SettingsScreen({ navigation }) {
   const location = useLocation();
 
   const menuItems = [
@@ -31,6 +31,7 @@ function ProfileScreen(props) {
           title="Josh"
           subTitle="josh@gmail.com"
           icon="account"
+          onPress={() => navigation.navigate("Account")}
         ></ListItem>
       </View>
       <View style={styles.sections}>
@@ -64,4 +65,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ProfileScreen;
+export default SettingsScreen;

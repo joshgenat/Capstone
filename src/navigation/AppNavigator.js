@@ -8,7 +8,7 @@ import AnalyticsScreen from "../screens/AnalyticsScreen";
 import DashboardScreen from "../screens/DashboardScreen";
 import SearchDeviceScreen from "../screens/SearchDeviceScreen";
 import EditDeviceScreen from "../screens/EditDeviceScreen";
-import ProfileScreen from "../screens/ProfileScreen";
+import ProfileScreen from "../screens/SettingsScreen";
 import RoutinesScreen from "../screens/RoutinesScreen";
 import colors from "../config/colors";
 import DashboardNavigator from "./DashboardNavigator";

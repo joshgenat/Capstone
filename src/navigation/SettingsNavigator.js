@@ -7,7 +7,8 @@ import EditDeviceScreen from "../screens/EditDeviceScreen";
 import SearchDeviceScreen from "../screens/SearchDeviceScreen";
 import colors from "../config/colors";
 import AppText from "../components/AppText";
-import ProfileScreen from "../screens/ProfileScreen";
+import SettingsScreen from "../screens/SettingsScreen";
+import AccountScreen from "../screens/AccountScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -33,8 +34,8 @@ const SettingsNavigator = () => (
       headerTitle: () => <CustomHeaderTitle title={route.name} />,
     })}
   >
-    <Stack.Screen name="Settings" component={ProfileScreen} />
-    <Stack.Screen name="Edit Device" component={EditDeviceScreen} />
+    <Stack.Screen name="Settings" component={SettingsScreen} />
+    <Stack.Screen name="Account" component={AccountScreen} />
     <Stack.Screen name="Search" component={SearchDeviceScreen} />
   </Stack.Navigator>
 );

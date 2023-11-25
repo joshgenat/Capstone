@@ -42,6 +42,7 @@ function LoginScreen({ navigation }) {
           secureTextEntry
           textContentType="password"
         ></AppFormField>
+
         <SubmitButton title="Login"></SubmitButton>
       </AppForm>
     </Screen>

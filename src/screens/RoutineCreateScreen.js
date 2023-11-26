@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import { View, StyleSheet } from "react-native";
+import DateTimePicker from "@react-native-community/datetimepicker";
 import * as Yup from "yup";
 
 import Screen from "../components/Screen";
@@ -12,6 +13,8 @@ const validationSchema = Yup.object().shape({
 });
 
 function RoutineCreateScreen(props) {
+  const [date, setDate] = useState(new Date());
+
   return (
     <Screen>
       <View style={styles.container}>
@@ -29,11 +32,13 @@ function RoutineCreateScreen(props) {
             ></AppFormField>
           </View>
           <View style={styles.section}>
-            <AppText style={styles.text}>
-              Choose how this routine will start
-            </AppText>
-            <ListItem title="Start at" rightText="Select a Time"></ListItem>
-            <ListItem title="End at" rightText="Select a Time"></ListItem>
+            <AppText style={styles.text}>Choose time of day</AppText>
+            <DateTimePicker
+              mode="time"
+              display="spinner"
+              value={date}
+              style={styles.datePicker}
+            ></DateTimePicker>
           </View>
 
           <View style={styles.section}>
@@ -62,6 +67,9 @@ function RoutineCreateScreen(props) {
 const styles = StyleSheet.create({
   section: {
     marginBottom: 20,
+  },
+  datePicker: {
+    height: 150,
   },
   text: {
     marginHorizontal: 20,

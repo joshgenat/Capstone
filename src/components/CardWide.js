@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { View, StyleSheet, Text, TouchableOpacity } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
-import colors from "../config/colors";
 import AppText from "./AppText";
 import AppBarChart from "./AppBarChart";
+import colors from "../config/colors";
 
 function CardWide({
   title,

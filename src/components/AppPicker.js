@@ -75,6 +75,7 @@ const styles = StyleSheet.create({
   modal: {
     flex: 1,
     alignItems: "center",
+    width: "100%",
   },
 });
 

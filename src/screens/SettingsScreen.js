@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { StyleSheet, FlatList, View } from "react-native";
+import { StyleSheet, View } from "react-native";
 
 import ListItem from "../components/ListItem";
 import Screen from "../components/Screen";
@@ -10,28 +10,27 @@ import colors from "../config/colors";
 function SettingsScreen({ navigation }) {
   const location = useLocation();
 
-  const menuItems = [
-    {
-      title: "Notifications",
-      icon: "bell",
-      toggleIcon: "chevron-right",
-    },
-    {
-      title: "Privacy",
-      icon: "lock",
-
-      toggleIcon: "chevron-right",
-    },
-  ];
+  const account = {
+    id: 1,
+    username: "Josh",
+    email: "josh@gmail.com",
+    password: "joshgenat",
+  };
 
   return (
     <Screen style={styles.container}>
       <View style={styles.sections}>
         <ListItem
-          title="Josh"
-          subTitle="josh@gmail.com"
+          title={account.username}
+          subTitle={account.email}
           icon="account"
-          onPress={() => navigation.navigate("Account")}
+          onPress={() =>
+            navigation.navigate("Account", {
+              username: account.username,
+              email: account.email,
+              password: account.password,
+            })
+          }
         ></ListItem>
       </View>
       <View style={styles.sections}>
@@ -45,7 +44,7 @@ function SettingsScreen({ navigation }) {
           title="Privacy"
           icon="lock"
           toggleIcon="chevron-right"
-          onPress={(values) => console.log(location)}
+          onPress={() => console.log(location)}
         ></ListItem>
       </View>
       <View>

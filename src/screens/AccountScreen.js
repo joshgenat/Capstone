@@ -3,8 +3,6 @@ import { View, StyleSheet } from "react-native";
 import * as Yup from "yup";
 
 import Screen from "../components/Screen";
-import AppText from "../components/AppText";
-import ListItem from "../components/ListItem";
 import { AppForm, AppFormField, SubmitButton } from "../components/forms";
 
 const validationSchema = Yup.object().shape({
@@ -13,7 +11,9 @@ const validationSchema = Yup.object().shape({
   password: Yup.string().required().min(4).label("Password"),
 });
 
-function AccountScreen(props) {
+function AccountScreen({ route }) {
+  const { username, email, password } = route.params || {};
+
   return (
     <Screen>
       <AppForm
@@ -27,23 +27,31 @@ function AccountScreen(props) {
               autoCapitalize="none"
               autoCorrect={false}
               name="username"
-              placeholder="Username"
+              icon="account"
+              placeholder={username}
+              textContentType="username"
             ></AppFormField>
           </View>
           <View style={styles.section}>
             <AppFormField
               autoCapitalize="none"
               autoCorrect={false}
+              icon="email"
+              keyboardType="email-address"
               name="email"
-              placeholder="Email"
+              placeholder={email}
+              textContentType="emailAddress"
             ></AppFormField>
           </View>
           <View style={styles.section}>
             <AppFormField
               autoCapitalize="none"
               autoCorrect={false}
+              icon="lock"
               name="password"
-              placeholder="Password"
+              placeholder="••••••••"
+              secureTextEntry={true}
+              textContentType="password"
             ></AppFormField>
           </View>
         </View>

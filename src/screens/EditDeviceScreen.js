@@ -7,7 +7,6 @@ import Screen from "../components/Screen";
 import { AppForm, AppFormField, SubmitButton } from "../components/forms";
 import colors from "../config/colors";
 import AppText from "../components/AppText";
-import AppButton from "../components/AppButton";
 
 const validationSchema = Yup.object().shape({
   deviceName: Yup.string().required().label("Device Name"),

@@ -64,9 +64,11 @@ function DashboardScreen({ navigation }) {
 const styles = StyleSheet.create({
   screen: {
     backgroundColor: colors.white,
+    marginTop: 0,
   },
   columnWrapperStyle: {
-    padding: 15,
+    padding: 20,
+    overflow: "visible",
     justifyContent: "space-evenly",
   },
 });

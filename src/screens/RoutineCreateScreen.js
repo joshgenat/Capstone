@@ -16,6 +16,7 @@ const validationSchema = Yup.object().shape({
 function RoutineCreateScreen(props) {
   const [date, setDate] = useState(new Date());
   const [device, setDevice] = useState();
+  const [action, setAction] = useState();
 
   const devices = [
     {
@@ -32,6 +33,17 @@ function RoutineCreateScreen(props) {
       id: 3,
       title: "Floor Lights",
       icon: "lightbulb-outline",
+    },
+  ];
+
+  const actions = [
+    {
+      id: 1,
+      title: "Turn On",
+    },
+    {
+      id: 2,
+      title: "Turn Off",
     },
   ];
 
@@ -69,16 +81,22 @@ function RoutineCreateScreen(props) {
               placeholder="Add Device"
               icon="plus"
               selectedItem={device}
-              onSelectItem={(item) => setDevice(item)}
+              onSelectItem={(device) => setDevice(device)}
               items={devices}
             ></AppPicker>
           </View>
 
           <View style={styles.section}>
             <AppText style={styles.text}>
-              Create an action for this routine
+              Choose an action for this routine
             </AppText>
-            <ListItem title="Choose Action" icon="chevron-down"></ListItem>
+            <AppPicker
+              placeholder="Choose Action"
+              icon="playlist-edit"
+              selectedItem={action}
+              onSelectItem={(action) => setAction(action)}
+              items={actions}
+            ></AppPicker>
           </View>
 
           <View style={styles.button}>

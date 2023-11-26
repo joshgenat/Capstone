@@ -15,14 +15,7 @@ import AppButton from "./AppButton";
 import Screen from "./Screen";
 import AppPickerItem from "./AppPickerItem";
 
-function AppPicker({
-  icon,
-  placeholder,
-  items,
-  onSelectItem,
-  selectedItem,
-  ...otherProps
-}) {
+function AppPicker({ icon, placeholder, items, onSelectItem, selectedItem }) {
   const [modalVisible, setModalVisible] = useState(false);
 
   return (

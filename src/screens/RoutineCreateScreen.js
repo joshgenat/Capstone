@@ -7,6 +7,7 @@ import Screen from "../components/Screen";
 import AppText from "../components/AppText";
 import ListItem from "../components/ListItem";
 import { AppForm, AppFormField, SubmitButton } from "../components/forms";
+import AppPicker from "../components/AppPicker";
 
 const validationSchema = Yup.object().shape({
   routine: Yup.string().required().label("Routine"),
@@ -45,7 +46,7 @@ function RoutineCreateScreen(props) {
             <AppText style={styles.text}>
               Choose devices for this routine
             </AppText>
-            <ListItem title="Add Device" icon="plus"></ListItem>
+            <AppPicker placeholder="Add Device" icon="plus"></AppPicker>
           </View>
 
           <View style={styles.section}>

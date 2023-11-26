@@ -38,13 +38,14 @@ function SettingsScreen({ navigation }) {
           title="Notifications"
           icon="bell"
           toggleIcon="chevron-right"
+          onPress={() => navigation.navigate("Notifications")}
         ></ListItem>
         <ListItemSeperator></ListItemSeperator>
         <ListItem
           title="Privacy"
           icon="lock"
           toggleIcon="chevron-right"
-          onPress={() => console.log(location)}
+          onPress={() => navigation.navigate("Privacy")}
         ></ListItem>
       </View>
       <View>

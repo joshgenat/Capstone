@@ -1,11 +1,25 @@
 import React, { useState } from "react";
-import { View, StyleSheet, TouchableHighlight } from "react-native";
+import { View, StyleSheet, TouchableHighlight, Switch } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 import AppText from "./AppText";
 import colors from "../config/colors";
 
-function ListItem({ title, subTitle, icon, toggleIcon, rightText, onPress }) {
+function ListItem({
+  title,
+  subTitle,
+  icon,
+  toggleIcon,
+  rightText,
+  switchToggle,
+  onPress,
+}) {
+  const [isEnabled, setIsEnabled] = useState(false);
+
+  const toggleSwitch = () => {
+    setIsEnabled(!isEnabled);
+  };
+
   return (
     <TouchableHighlight underlayColor={colors.light} onPress={onPress}>
       <View style={styles.container}>
@@ -20,6 +34,9 @@ function ListItem({ title, subTitle, icon, toggleIcon, rightText, onPress }) {
         </View>
         {rightText && <AppText>{rightText}</AppText>}
         {toggleIcon && <MaterialCommunityIcons name={toggleIcon} size={25} />}
+        {switchToggle && (
+          <Switch value={isEnabled} onValueChange={toggleSwitch} />
+        )}
       </View>
     </TouchableHighlight>
   );

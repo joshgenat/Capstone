@@ -9,6 +9,8 @@ import colors from "../config/colors";
 import AppText from "../components/AppText";
 import SettingsScreen from "../screens/SettingsScreen";
 import AccountScreen from "../screens/AccountScreen";
+import NotificationsScreen from "../screens/NotificationsScreen";
+import PrivacyScreen from "../screens/PrivacyScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -36,7 +38,8 @@ const SettingsNavigator = () => (
   >
     <Stack.Screen name="Settings" component={SettingsScreen} />
     <Stack.Screen name="Account" component={AccountScreen} />
-    <Stack.Screen name="Search" component={SearchDeviceScreen} />
+    <Stack.Screen name="Notifications" component={NotificationsScreen} />
+    <Stack.Screen name="Privacy" component={PrivacyScreen} />
   </Stack.Navigator>
 );
 

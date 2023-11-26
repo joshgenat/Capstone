@@ -15,26 +15,15 @@ import AppButton from "./AppButton";
 import Screen from "./Screen";
 import AppPickerItem from "./AppPickerItem";
 
-function AppPicker({ icon, placeholder, onPress, ...otherProps }) {
+function AppPicker({
+  icon,
+  placeholder,
+  items,
+  onSelectItem,
+  selectedItem,
+  ...otherProps
+}) {
   const [modalVisible, setModalVisible] = useState(false);
-
-  const devices = [
-    {
-      id: 1,
-      title: "Ceiling Lights",
-      icon: "lightbulb-outline",
-    },
-    {
-      id: 2,
-      title: "Floor Lights",
-      icon: "lightbulb-outline",
-    },
-    {
-      id: 3,
-      title: "Floor Lights",
-      icon: "lightbulb-outline",
-    },
-  ];
 
   return (
     <>
@@ -47,18 +36,23 @@ function AppPicker({ icon, placeholder, onPress, ...otherProps }) {
               style={styles.icon}
             ></MaterialCommunityIcons>
           )}
-          <AppText style={styles.text}>{placeholder}</AppText>
+          <AppText style={styles.text}>
+            {selectedItem ? selectedItem.title : placeholder}
+          </AppText>
         </View>
       </TouchableWithoutFeedback>
       <Modal visible={modalVisible} animationType="slide">
         <Screen style={styles.modal}>
           <FlatList
-            data={devices}
+            data={items}
             keyExtractor={(device) => device.id.toString()}
             renderItem={({ item }) => (
               <AppPickerItem
                 label={item.title}
-                onPress={() => console.log(item)}
+                onPress={() => {
+                  setModalVisible(false);
+                  onSelectItem(item);
+                }}
               ></AppPickerItem>
             )}
           ></FlatList>

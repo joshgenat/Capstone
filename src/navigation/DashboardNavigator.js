@@ -10,6 +10,7 @@ import colors from "../config/colors";
 import AppText from "../components/AppText";
 import SetupDeviceScreen from "../screens/SetupDeviceScreen";
 import PairDeviceScreen from "../screens/PairDeviceScreen";
+import AddDeviceScreen from "../screens/AddDeviceScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -47,6 +48,7 @@ const DashboardNavigator = () => (
     <Stack.Screen name="Setup Device" component={SetupDeviceScreen} />
     <Stack.Screen name="Search Device" component={SearchDeviceScreen} />
     <Stack.Screen name="Pair Device" component={PairDeviceScreen} />
+    <Stack.Screen name="Add Device" component={AddDeviceScreen} />
   </Stack.Navigator>
 );
 

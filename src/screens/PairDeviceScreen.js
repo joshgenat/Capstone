@@ -28,7 +28,7 @@ function PairDeviceScreen({ navigation }) {
           icon={item.icon}
           toggleIcon="chevron-right"
           onPress={() =>
-            navigation.navigate("Edit Device", { deviceName: item.title })
+            navigation.navigate("Add Device", { deviceName: item.title })
           }
         ></ListItem>
       ))}

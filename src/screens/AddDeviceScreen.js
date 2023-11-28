@@ -12,7 +12,7 @@ const validationSchema = Yup.object().shape({
   deviceName: Yup.string().required().label("Device Name"),
 });
 
-function EditDeviceScreen({ route }) {
+function AddDeviceScreen({ route }) {
   const { deviceName } = route.params; // Extract deviceName from route.params
 
   const placeholderText = deviceName ? `${deviceName}` : "Enter Device Name";
@@ -37,8 +37,7 @@ function EditDeviceScreen({ route }) {
           ></AppFormField>
         </View>
         <View style={styles.button}>
-          <SubmitButton title="Save Changes" color="secondary"></SubmitButton>
-          <SubmitButton title="Delete Device" color="danger"></SubmitButton>
+          <SubmitButton title="Add Device" color="primary"></SubmitButton>
         </View>
       </AppForm>
     </Screen>
@@ -65,4 +64,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default EditDeviceScreen;
+export default AddDeviceScreen;

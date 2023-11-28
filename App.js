@@ -40,7 +40,7 @@ export default function App() {
 
   return (
     // <Screen style={styles.container}>
-    // <RoutinesScreen></RoutinesScreen>
+    //   <Toggle></Toggle>
     // </Screen>
     <>
       <StatusBar barStyle="dark-content"></StatusBar>

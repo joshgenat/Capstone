@@ -30,13 +30,16 @@ const RoutinesNavigator = () => (
         backgroundColor: colors.light,
       },
       headerBackTitle: "Back",
-      headerRight: () => (
-        <View style={{ marginRight: 10 }}>
-          <TouchableOpacity onPress={() => navigation.navigate("Search")}>
-            <MaterialCommunityIcons name="plus" size={25} color="black" />
-          </TouchableOpacity>
-        </View>
-      ),
+      headerRight: () =>
+        route.name === "Routines" ? (
+          <View style={{ marginRight: 10 }}>
+            <TouchableOpacity
+              onPress={() => navigation.navigate("Create Routine")}
+            >
+              <MaterialCommunityIcons name="plus" size={25} color="black" />
+            </TouchableOpacity>
+          </View>
+        ) : null,
 
       headerTitle: () => <CustomHeaderTitle title={route.name} />,
     })}

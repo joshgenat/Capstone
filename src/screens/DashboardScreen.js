@@ -17,11 +17,11 @@ function DashboardScreen({ navigation }) {
       title: "Floor Lights",
       icon: "lightbulb-outline",
     },
-    {
-      id: 3,
-      title: "Floor Lights",
-      icon: "lightbulb-outline",
-    },
+    // {
+    //   id: 3,
+    //   title: "Lightstrip",
+    //   icon: "lightbulb-outline",
+    // },
   ];
 
   // Add a fake item if the number of devices is odd

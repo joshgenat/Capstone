@@ -20,9 +20,13 @@ function CardWide({
     <View style={[styles.card, style]}>
       <TouchableOpacity onPress={onPress} style={styles.touchableArea}>
         <View style={styles.contentContainer}>
-          <Text style={styles.title}>{title}</Text>
-          <MaterialCommunityIcons name={icon} size={40} />
-          {chart && <AppBarChart></AppBarChart>}
+          {!chart && (
+            <>
+              <Text style={styles.title}>{title}</Text>
+              <MaterialCommunityIcons name={icon} size={40} />
+            </>
+          )}
+          {chart && <AppBarChart />}
         </View>
       </TouchableOpacity>
       {toggle && (
@@ -57,12 +61,10 @@ const styles = StyleSheet.create({
     justifyContent: "center", // Center the icon and title
     padding: 10,
     flex: 5,
-    overflow: "hidden",
   },
   title: {
     color: colors.black, // Title color
     fontSize: 20,
-    fontWeight: 700,
     marginBottom: 10,
   },
   toggleContainer: {
@@ -80,6 +82,7 @@ const styles = StyleSheet.create({
     flex: 5,
     justifyContent: "center",
     alignItems: "center",
+    overflow: "hidden",
   },
 });
 

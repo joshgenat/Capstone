@@ -8,12 +8,12 @@ function PairDeviceScreen({ navigation }) {
   const devices = [
     {
       id: 1,
-      title: "Philips Hue Light Bulb",
+      title: "Light Bulb",
       icon: "lightbulb-outline",
     },
     {
       id: 2,
-      title: "Govee Lightstrip",
+      title: "Lightstrip",
       icon: "lightbulb-outline",
     },
   ];

@@ -31,7 +31,7 @@ function RoutineCreateScreen(props) {
     },
     {
       id: 3,
-      title: "Floor Lights",
+      title: "Lightstrip",
       icon: "lightbulb-outline",
     },
   ];

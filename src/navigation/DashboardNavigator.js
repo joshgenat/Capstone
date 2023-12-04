@@ -32,14 +32,16 @@ const DashboardNavigator = () => (
         backgroundColor: colors.light,
       },
       headerBackTitle: "Back",
-      headerRight: () => (
-        <View style={{ marginRight: 10 }}>
-          <TouchableOpacity onPress={() => navigation.navigate("Setup Device")}>
-            <MaterialCommunityIcons name="plus" size={25} color="black" />
-          </TouchableOpacity>
-        </View>
-      ),
-
+      headerRight: () =>
+        route.name === "Your Dashboard" ? (
+          <View style={{ marginRight: 10 }}>
+            <TouchableOpacity
+              onPress={() => navigation.navigate("Setup Device")}
+            >
+              <MaterialCommunityIcons name="plus" size={25} color="black" />
+            </TouchableOpacity>
+          </View>
+        ) : null,
       headerTitle: () => <CustomHeaderTitle title={route.name} />,
     })}
   >

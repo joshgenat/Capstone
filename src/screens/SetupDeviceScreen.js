@@ -11,10 +11,12 @@ function SetupDeviceScreen({ navigation }) {
         Make sure the device you want to add is connected to power and ready to
         pair.
       </AppText>
-      <AppButton
-        title="Search"
-        onPress={() => navigation.navigate("Pair Device")}
-      ></AppButton>
+      <View style={styles.button}>
+        <AppButton
+          title="Search"
+          onPress={() => navigation.navigate("Pair Device")}
+        ></AppButton>
+      </View>
     </Screen>
   );
 }
@@ -26,6 +28,9 @@ const styles = StyleSheet.create({
   text: {
     textAlign: "center",
     marginBottom: 20,
+  },
+  button: {
+    alignItems: "center",
   },
 });
 

@@ -11,6 +11,8 @@ import SettingsScreen from "../screens/SettingsScreen";
 import AccountScreen from "../screens/AccountScreen";
 import NotificationsScreen from "../screens/NotificationsScreen";
 import PrivacyScreen from "../screens/PrivacyScreen";
+import LoginScreen from "../screens/LoginScreen";
+import RegisterScreen from "../screens/RegisterScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -40,6 +42,7 @@ const SettingsNavigator = () => (
     <Stack.Screen name="Account" component={AccountScreen} />
     <Stack.Screen name="Notifications" component={NotificationsScreen} />
     <Stack.Screen name="Privacy" component={PrivacyScreen} />
+    <Stack.Screen name="Sign Out" component={LoginScreen} />
   </Stack.Navigator>
 );
 

@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, Image } from "react-native";
+import { StyleSheet, Image, View } from "react-native";
 import * as Yup from "yup";
 
 import { AppForm, AppFormField, SubmitButton } from "../components/forms";
@@ -51,7 +51,10 @@ function RegisterScreen(props) {
           secureTextEntry
           textContentType="password"
         ></AppFormField>
-        <SubmitButton title="Login"></SubmitButton>
+
+        <View style={styles.button}>
+          <SubmitButton title="Register"></SubmitButton>
+        </View>
       </AppForm>
     </Screen>
   );
@@ -65,6 +68,10 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     marginTop: 20,
     marginBottom: 20,
+  },
+  button: {
+    marginTop: 20,
+    alignItems: "center",
   },
 });
 

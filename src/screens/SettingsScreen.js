@@ -49,7 +49,11 @@ function SettingsScreen({ navigation }) {
         ></ListItem>
       </View>
       <View>
-        <ListItem title="Sign Out" icon="logout"></ListItem>
+        <ListItem
+          title="Sign Out"
+          icon="logout"
+          onPress={() => navigation.navigate("Sign Out")}
+        ></ListItem>
       </View>
     </Screen>
   );

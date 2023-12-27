@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, Image } from "react-native";
+import { StyleSheet, Image, View } from "react-native";
 import * as Yup from "yup";
 
 import { AppForm, AppFormField, SubmitButton } from "../components/forms";
@@ -25,6 +25,7 @@ function LoginScreen({ navigation }) {
         validationSchema={validationSchema}
       >
         <AppFormField
+          style={styles.input}
           autoCapitalize="none"
           autoCorrect={false}
           icon="email"
@@ -34,6 +35,7 @@ function LoginScreen({ navigation }) {
           textContentType="emailAddress"
         ></AppFormField>
         <AppFormField
+          style={styles.input}
           autoCapitalize="none"
           autoCorrect={false}
           icon="lock"
@@ -43,7 +45,9 @@ function LoginScreen({ navigation }) {
           textContentType="password"
         ></AppFormField>
 
-        <SubmitButton title="Login"></SubmitButton>
+        <View style={styles.button}>
+          <SubmitButton title="Login"></SubmitButton>
+        </View>
       </AppForm>
     </Screen>
   );
@@ -58,6 +62,11 @@ const styles = StyleSheet.create({
     marginTop: 20,
     marginBottom: 20,
   },
+  button: {
+    marginTop: 20,
+    alignItems: "center",
+  },
+  input: {},
 });
 
 export default LoginScreen;

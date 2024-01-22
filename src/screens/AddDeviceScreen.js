@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { FlatList, StyleSheet, View } from "react-native";
-import * as Yup from "yup";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 import Screen from "../components/Screen";
@@ -11,10 +10,6 @@ import AppText from "../components/AppText";
 
 import { addDoc, collection, onSnapshot } from "firebase/firestore";
 import { db } from "../config/firebase";
-
-const validationSchema = Yup.object().shape({
-  deviceName: Yup.string().required().label("Device Name"),
-});
 
 function AddDeviceScreen({ route }) {
   const { deviceName } = route.params; // Extract deviceName from route.params

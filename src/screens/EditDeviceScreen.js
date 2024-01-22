@@ -1,46 +1,47 @@
-import React from "react";
-import { StyleSheet, View } from "react-native";
-import * as Yup from "yup";
+import React, { useEffect, useState } from "react";
+import { FlatList, StyleSheet, View } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 import Screen from "../components/Screen";
-import { AppForm, AppFormField, SubmitButton } from "../components/forms";
 import colors from "../config/colors";
 import AppText from "../components/AppText";
+import AppTextInput from "../components/AppTextInput";
+import AppButton from "../components/AppButton";
 
-const validationSchema = Yup.object().shape({
-  deviceName: Yup.string().required().label("Device Name"),
-});
+import { deleteDoc } from "firebase/firestore";
+import { db } from "../config/firebase";
 
-function EditDeviceScreen({ route }) {
+function EditDeviceScreen({ route, id }) {
   const { deviceName } = route.params; // Extract deviceName from route.params
+
+  function deleteDevice() {
+    const device = doc(db, "devices", id);
+    deleteDoc(device);
+  }
 
   const placeholderText = deviceName ? `${deviceName}` : "Enter Device Name";
 
-  console.log(deviceName);
   return (
     <Screen style={styles.container}>
       <View style={styles.icon}>
         <MaterialCommunityIcons name="lightbulb-outline" size={50} />
       </View>
-      <AppForm
-        initialValues={{ deviceName }}
-        onSubmit={(values) => console.log(values)}
-        validationSchema={validationSchema}
-      >
-        <View style={styles.content}>
-          <AppFormField
-            autoCapitalize="none"
-            autoCorrect={false}
-            name="deviceName"
-            placeholder={placeholderText}
-          ></AppFormField>
-        </View>
-        <View style={styles.button}>
-          <SubmitButton title="Save Changes" color="secondary"></SubmitButton>
-          <SubmitButton title="Delete Device" color="danger"></SubmitButton>
-        </View>
-      </AppForm>
+      <View style={styles.content}>
+        <AppTextInput
+          autoCapitalize="none"
+          autoCorrect={false}
+          name="deviceName"
+          placeholder={placeholderText}
+        ></AppTextInput>
+      </View>
+      <View style={styles.button}>
+        <AppButton title="Save Changes" color="secondary"></AppButton>
+        <AppButton
+          title="Delete Device"
+          color="danger"
+          onPress={deleteDevice}
+        ></AppButton>
+      </View>
     </Screen>
   );
 }

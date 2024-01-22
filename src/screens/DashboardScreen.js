@@ -64,7 +64,10 @@ function DashboardScreen({ navigation }) {
         title={item.deviceName}
         icon="lightbulb-outline"
         onPress={() =>
-          navigation.navigate("Edit Device", { deviceName: item.deviceName })
+          navigation.navigate("Edit Device", {
+            deviceName: item.deviceName,
+            id: item.id,
+          })
         }
       />
     );

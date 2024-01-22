@@ -9,6 +9,7 @@ import colors from "../config/colors";
 import AppText from "../components/AppText";
 import RoutinesScreen from "../screens/RoutinesScreen";
 import RoutineCreateScreen from "../screens/RoutineCreateScreen";
+import RoutineEditScreen from "../screens/RoutineEditScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -46,6 +47,7 @@ const RoutinesNavigator = () => (
   >
     <Stack.Screen name="Routines" component={RoutinesScreen} />
     <Stack.Screen name="Create Routine" component={RoutineCreateScreen} />
+    <Stack.Screen name="Edit Routine" component={RoutineEditScreen} />
     <Stack.Screen name="Search" component={SearchDeviceScreen} />
   </Stack.Navigator>
 );

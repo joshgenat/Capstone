@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { StyleSheet } from "react-native";
 
 import Screen from "../components/Screen";
@@ -7,14 +7,32 @@ import AppText from "../components/AppText";
 import colors from "../config/colors";
 
 function RoutinesScreen({ navigation }) {
+  // State to track if a routine has been created
+  const [hasRoutine, setHasRoutine] = useState(false);
+
   return (
     <Screen style={styles.container}>
-      <CardWide
-        title="Create a Routine"
-        icon="plus"
-        style={{ height: 150 }}
-        onPress={() => navigation.navigate("Create Routine")}
-      ></CardWide>
+      {!hasRoutine && (
+        <CardWide
+          title="Create a Routine"
+          icon="plus"
+          style={{ height: 150 }}
+          onPress={() => {
+            setHasRoutine(true);
+            navigation.navigate("Create Routine");
+          }}
+        ></CardWide>
+      )}
+      {hasRoutine && (
+        <CardWide
+          title="Sleep Time"
+          toggle
+          subTextLeft="Turns off Device(s)"
+          subTextRight="9:00 PM"
+          style={{ height: 150 }}
+          onPress={() => navigation.navigate("Edit Routine")}
+        ></CardWide>
+      )}
       <AppText style={styles.text}>
         Have your accessories react to changes at home.
       </AppText>
@@ -27,7 +45,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.white,
   },
   text: {
-    marginTop: 20,
+    marginTop: 25,
     textAlign: "center",
     marginHorizontal: 20,
   },

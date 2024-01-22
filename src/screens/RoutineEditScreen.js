@@ -5,7 +5,6 @@ import * as Yup from "yup";
 
 import Screen from "../components/Screen";
 import AppText from "../components/AppText";
-import ListItem from "../components/ListItem";
 import { AppForm, AppFormField, SubmitButton } from "../components/forms";
 import AppPicker from "../components/AppPicker";
 
@@ -101,6 +100,9 @@ function RoutineCreateScreen(props) {
 
           <View style={styles.button}>
             <SubmitButton title="Save" color="medium"></SubmitButton>
+          </View>
+          <View style={styles.button}>
+            <SubmitButton title="Delete" color="danger"></SubmitButton>
           </View>
         </AppForm>
       </View>

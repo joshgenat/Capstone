@@ -1,12 +1,16 @@
-import React from "react";
-import { StyleSheet, View } from "react-native";
+import React, { useState, useEffect } from "react";
+import { FlatList, StyleSheet, View } from "react-native";
 import * as Yup from "yup";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 import Screen from "../components/Screen";
-import { AppForm, AppFormField, SubmitButton } from "../components/forms";
 import colors from "../config/colors";
+import AppTextInput from "../components/AppTextInput";
+import AppButton from "../components/AppButton";
 import AppText from "../components/AppText";
+
+import { addDoc, collection, onSnapshot } from "firebase/firestore";
+import { db } from "../config/firebase";
 
 const validationSchema = Yup.object().shape({
   deviceName: Yup.string().required().label("Device Name"),
@@ -15,31 +19,69 @@ const validationSchema = Yup.object().shape({
 function AddDeviceScreen({ route }) {
   const { deviceName } = route.params; // Extract deviceName from route.params
 
+  // add device to firebase
+  const [device, setDevice] = useState({ deviceName: "" });
+
+  // read devices from firebase
+  const [people, setPeople] = useState([]);
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    setLoading(true);
+    const usersQuery = collection(db, "devices");
+    onSnapshot(usersQuery, (snapshot) => {
+      let usersList = [];
+      snapshot.docs.forEach((doc) => {
+        const userData = doc.data(); // Use .data() to get the actual document data
+        usersList.push({ ...userData, id: doc.id }); // Spread userData to include all fields
+      });
+      setPeople(usersList);
+      setLoading(false);
+    });
+  }, []);
+
+  const renderItem = ({ item }) => (
+    <View>
+      <AppText>{item.deviceName}</AppText>
+    </View>
+  );
+
+  console.log(people);
+
+  function addDevice() {
+    const deviceDb = collection(db, "devices");
+    addDoc(deviceDb, {
+      deviceName: device.deviceName,
+    });
+  }
+
   const placeholderText = deviceName ? `${deviceName}` : "Enter Device Name";
 
-  console.log(deviceName);
   return (
     <Screen style={styles.container}>
       <View style={styles.icon}>
         <MaterialCommunityIcons name="lightbulb-outline" size={50} />
       </View>
-      <AppForm
-        initialValues={{ deviceName }}
-        onSubmit={(values) => console.log(values)}
-        validationSchema={validationSchema}
-      >
-        <View style={styles.content}>
-          <AppFormField
-            autoCapitalize="none"
-            autoCorrect={false}
-            name="deviceName"
-            placeholder={placeholderText}
-          ></AppFormField>
-        </View>
-        <View style={styles.button}>
-          <SubmitButton title="Add Device" color="primary"></SubmitButton>
-        </View>
-      </AppForm>
+      <View style={styles.content}>
+        <AppTextInput
+          name="deviceName"
+          placeholder={placeholderText}
+          value={device.deviceName}
+          onChangeText={(text) => setDevice({ ...device, deviceName: text })}
+        ></AppTextInput>
+      </View>
+      <FlatList
+        data={people}
+        renderItem={renderItem}
+        keyExtractor={(item) => item.id}
+      ></FlatList>
+      <View style={styles.button}>
+        <AppButton
+          title="Add Device"
+          color="primary"
+          onPress={addDevice}
+        ></AppButton>
+      </View>
     </Screen>
   );
 }

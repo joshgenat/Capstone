@@ -30,7 +30,7 @@ function EditDeviceScreen({ route, navigation }) {
   // Delete the device
   const deleteDevice = async () => {
     try {
-      await deleteDoc(doc(db, "devices", id));
+      await deleteDoc(doc(db, "devices", deviceId));
       navigation.navigate("Your Dashboard");
     } catch (error) {
       console.error("Error deleting device: ", error);

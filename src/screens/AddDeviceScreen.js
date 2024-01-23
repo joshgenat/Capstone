@@ -11,7 +11,7 @@ import AppText from "../components/AppText";
 import { addDoc, collection, onSnapshot } from "firebase/firestore";
 import { db } from "../config/firebase";
 
-function AddDeviceScreen({ route }) {
+function AddDeviceScreen({ route, navigation }) {
   const { deviceName } = route.params; // Extract deviceName from route.params
 
   // add device to firebase
@@ -21,33 +21,32 @@ function AddDeviceScreen({ route }) {
   const [people, setPeople] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  useEffect(() => {
-    setLoading(true);
-    const usersQuery = collection(db, "devices");
-    onSnapshot(usersQuery, (snapshot) => {
-      let usersList = [];
-      snapshot.docs.forEach((doc) => {
-        const userData = doc.data(); // Use .data() to get the actual document data
-        usersList.push({ ...userData, id: doc.id }); // Spread userData to include all fields
-      });
-      setPeople(usersList);
-      setLoading(false);
-    });
-  }, []);
+  // useEffect(() => {
+  //   setLoading(true);
+  //   const usersQuery = collection(db, "devices");
+  //   onSnapshot(usersQuery, (snapshot) => {
+  //     let usersList = [];
+  //     snapshot.docs.forEach((doc) => {
+  //       const userData = doc.data(); // Use .data() to get the actual document data
+  //       usersList.push({ ...userData, id: doc.id }); // Spread userData to include all fields
+  //     });
+  //     setPeople(usersList);
+  //     setLoading(false);
+  //   });
+  // }, []);
 
-  const renderItem = ({ item }) => (
-    <View>
-      <AppText>{item.deviceName}</AppText>
-    </View>
-  );
-
-  console.log(people);
+  // const renderItem = ({ item }) => (
+  //   <View>
+  //     <AppText>{item.deviceName}</AppText>
+  //   </View>
+  // );
 
   function addDevice() {
     const deviceDb = collection(db, "devices");
     addDoc(deviceDb, {
       deviceName: device.deviceName,
     });
+    navigation.navigate("Your Dashboard");
   }
 
   const placeholderText = deviceName ? `${deviceName}` : "Enter Device Name";
@@ -65,11 +64,11 @@ function AddDeviceScreen({ route }) {
           onChangeText={(text) => setDevice({ ...device, deviceName: text })}
         ></AppTextInput>
       </View>
-      <FlatList
+      {/* <FlatList
         data={people}
         renderItem={renderItem}
         keyExtractor={(item) => item.id}
-      ></FlatList>
+      ></FlatList> */}
       <View style={styles.button}>
         <AppButton
           title="Add Device"

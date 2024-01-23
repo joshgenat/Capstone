@@ -15,7 +15,10 @@ function AddDeviceScreen({ route, navigation }) {
   const { deviceName } = route.params; // Extract deviceName from route.params
 
   // add device to firebase
-  const [device, setDevice] = useState({ deviceName: "" });
+  const [device, setDevice] = useState({
+    deviceName: "",
+    toggle: false,
+  });
 
   // read devices from firebase
   const [people, setPeople] = useState([]);
@@ -45,6 +48,7 @@ function AddDeviceScreen({ route, navigation }) {
     const deviceDb = collection(db, "devices");
     addDoc(deviceDb, {
       deviceName: device.deviceName,
+      toggle: device.toggle,
     });
     navigation.navigate("Your Dashboard");
   }

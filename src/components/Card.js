@@ -4,7 +4,10 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 import colors from "../config/colors";
 
-function Card({ title, icon, onPress }) {
+import { updateDoc, doc } from "firebase/firestore";
+import { db } from "../config/firebase";
+
+function Card({ title, icon, onPress, deviceId, onToggle }) {
   const [isEnabled, setIsEnabled] = useState(false);
   const [lights, setLights] = useState(
     isEnabled ? colors.primary : colors.black
@@ -15,7 +18,20 @@ function Card({ title, icon, onPress }) {
   }, [isEnabled]);
 
   const toggleSwitch = () => {
-    setIsEnabled(!isEnabled);
+    const newToggleState = !isEnabled;
+    setIsEnabled(newToggleState);
+
+    console.log(deviceId);
+
+    // Update Firestore and optionally call the onToggle callback
+    if (deviceId) {
+      const deviceRef = doc(db, "devices", deviceId);
+      updateDoc(deviceRef, { toggle: newToggleState }).then(() => {
+        if (onToggle) {
+          onToggle(deviceId, newToggleState);
+        }
+      });
+    }
   };
 
   return (

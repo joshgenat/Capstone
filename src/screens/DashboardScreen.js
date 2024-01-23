@@ -4,9 +4,8 @@ import { StyleSheet, FlatList, View } from "react-native";
 import Screen from "../components/Screen";
 import Card from "../components/Card";
 import colors from "../config/colors";
-import AppText from "../components/AppText";
 
-import { addDoc, collection, onSnapshot } from "firebase/firestore";
+import { collection, onSnapshot } from "firebase/firestore";
 import { db } from "../config/firebase";
 
 function DashboardScreen({ navigation }) {
@@ -18,39 +17,20 @@ function DashboardScreen({ navigation }) {
     setLoading(true);
     const usersQuery = collection(db, "devices");
     onSnapshot(usersQuery, (snapshot) => {
-      let usersList = [];
-      snapshot.docs.forEach((doc) => {
-        const userData = doc.data(); // Use .data() to get the actual document data
-        usersList.push({ ...userData, id: doc.id }); // Spread userData to include all fields
-      });
+      let usersList = snapshot.docs.map((doc) => ({
+        ...doc.data(),
+        id: doc.id,
+      }));
+
+      // Add a fake item if the number of devices is odd
+      if (usersList.length % 2 !== 0) {
+        usersList = [...usersList, { id: "fake", fake: true }];
+      }
+
       setDevices(usersList);
       setLoading(false);
     });
   }, []);
-
-  // const devices = [
-  //   {
-  //     id: 1,
-  //     title: "Ceiling Lights",
-  //     icon: "lightbulb-outline",
-  //   },
-  //   {
-  //     id: 2,
-  //     title: "Floor Lights",
-  //     icon: "lightbulb-outline",
-  //   },
-  //   // {
-  //   //   id: 3,
-  //   //   title: "Lightstrip",
-  //   //   icon: "lightbulb-outline",
-  //   // },
-  // ];
-
-  // Add a fake item if the number of devices is odd
-  const isOdd = devices.length % 2 !== 0;
-  if (isOdd) {
-    devices.push({ id: "fake", fake: true });
-  }
 
   const renderItem = ({ item }) => {
     if (item.fake) {
@@ -63,6 +43,7 @@ function DashboardScreen({ navigation }) {
       <Card
         title={item.deviceName}
         icon="lightbulb-outline"
+        deviceId={item.id}
         onPress={() =>
           navigation.navigate("Edit Device", {
             deviceName: item.deviceName,
@@ -77,14 +58,6 @@ function DashboardScreen({ navigation }) {
 
   return (
     <Screen style={styles.screen}>
-      {/* <FlatList
-        data={devices}
-        keyExtractor={(device) => device.id.toString()}
-        renderItem={renderItem}
-        numColumns={2} // Set number of columns to 2
-        columnWrapperStyle={styles.columnWrapperStyle} // Apply the style here
-      ></FlatList> */}
-
       <FlatList
         data={devices}
         renderItem={renderItem}

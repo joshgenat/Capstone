@@ -33,6 +33,7 @@ function RoutinesScreen({ navigation }) {
       <CardWide
         title={item.routineName}
         toggle
+        icon="clock-outline"
         onPress={() =>
           navigation.navigate("Edit Routine", {
             routineData: item,
@@ -49,18 +50,20 @@ function RoutinesScreen({ navigation }) {
   return (
     <Screen style={styles.container}>
       {routines.length === 0 && (
-        <CardWide
-          title="Create a Routine"
-          icon="plus"
-          style={{ height: 150 }}
-          onPress={() => {
-            navigation.navigate("Create Routine");
-          }}
-        ></CardWide>
+        <>
+          <CardWide
+            title="Create a Routine"
+            icon="plus"
+            style={{ height: 150 }}
+            onPress={() => {
+              navigation.navigate("Create Routine");
+            }}
+          ></CardWide>
+          <AppText style={styles.text}>
+            Have your accessories react to changes at home.
+          </AppText>
+        </>
       )}
-      <AppText style={styles.text}>
-        Have your accessories react to changes at home.
-      </AppText>
       {routines.length > 0 && (
         <FlatList
           data={routines}

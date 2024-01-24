@@ -22,8 +22,8 @@ function CardWide({
         <View style={styles.contentContainer}>
           {!chart && (
             <>
+              <MaterialCommunityIcons name={icon} size={30} />
               <Text style={styles.title}>{title}</Text>
-              <MaterialCommunityIcons name={icon} size={40} />
             </>
           )}
           {chart && <AppBarChart />}
@@ -65,7 +65,7 @@ const styles = StyleSheet.create({
   title: {
     color: colors.black, // Title color
     fontSize: 20,
-    marginBottom: 10,
+    marginVertical: 10,
   },
   toggleContainer: {
     padding: 10,

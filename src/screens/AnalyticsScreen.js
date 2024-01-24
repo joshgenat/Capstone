@@ -1,5 +1,6 @@
-import React from "react";
-import { StyleSheet } from "react-native";
+import React, { useEffect, useState } from "react";
+import { FlatList, StyleSheet } from "react-native";
+
 import Screen from "../components/Screen";
 import ListItem from "../components/ListItem";
 import AppText from "../components/AppText";
@@ -7,7 +8,41 @@ import CardWide from "../components/CardWide";
 import colors from "../config/colors";
 import ListItemSeperator from "../components/ListItemSeperator";
 
+import { collection, onSnapshot } from "firebase/firestore";
+import { db } from "../config/firebase";
+
 function AnalyticsScreen(props) {
+  // read devices from firebase
+  const [devices, setDevices] = useState([]);
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    setLoading(true);
+    const usersQuery = collection(db, "devices");
+    onSnapshot(usersQuery, (snapshot) => {
+      let usersList = snapshot.docs.map((doc) => ({
+        ...doc.data(),
+        id: doc.id,
+      }));
+
+      setDevices(usersList);
+      setLoading(false);
+    });
+  }, []);
+
+  const renderItem = ({ item }) => {
+    return (
+      <>
+        <ListItem
+          title={item.deviceName}
+          icon="lightbulb-outline"
+          rightText="6h 25min"
+        ></ListItem>
+        <ListItemSeperator></ListItemSeperator>
+      </>
+    );
+  };
+
   return (
     <Screen style={styles.container}>
       <CardWide
@@ -18,17 +53,12 @@ function AnalyticsScreen(props) {
         toggle
       ></CardWide>
       <AppText style={styles.sectionText}>Most Used</AppText>
-      <ListItem
-        title="Ceiling Lights"
-        icon="lightbulb-outline"
-        rightText="6h 25min"
-      ></ListItem>
-      <ListItemSeperator></ListItemSeperator>
-      <ListItem
-        title="Floor Lights"
-        icon="lightbulb-outline"
-        rightText="3h 37min"
-      ></ListItem>
+
+      <FlatList
+        data={devices}
+        renderItem={renderItem}
+        keyExtractor={(item) => item.id}
+      ></FlatList>
     </Screen>
   );
 }

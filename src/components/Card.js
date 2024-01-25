@@ -9,7 +9,7 @@ import { db, db2 } from "../config/firebase";
 import { getDatabase, onValue, ref, set } from "firebase/database";
 
 function Card({ title, icon, onPress, device }) {
-  const [isEnabled, setIsEnabled] = useState(device.toggle || false);
+  const [isEnabled, setIsEnabled] = useState(device.toggle ? 1 : 0);
   const [lights, setLights] = useState(
     isEnabled ? colors.primary : colors.black
   );
@@ -19,7 +19,7 @@ function Card({ title, icon, onPress, device }) {
   }, [isEnabled]);
 
   const toggleSwitch = async () => {
-    const newToggleState = !isEnabled;
+    const newToggleState = isEnabled === 1 ? 0 : 1;
     setIsEnabled(newToggleState);
 
     const firestoreRef = device.id ? doc(db, "devices", device.id) : null;
@@ -55,7 +55,7 @@ function Card({ title, icon, onPress, device }) {
         </View>
       </TouchableOpacity>
       <View style={styles.toggleContainer}>
-        <Switch value={isEnabled} onValueChange={toggleSwitch} />
+        <Switch value={isEnabled === 1} onValueChange={toggleSwitch} />
       </View>
     </View>
   );

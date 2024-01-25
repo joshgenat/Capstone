@@ -43,7 +43,7 @@ function DashboardScreen({ navigation }) {
       <Card
         title={item.deviceName}
         icon="lightbulb-outline"
-        deviceId={item.id}
+        device={item}
         onPress={() =>
           navigation.navigate("Edit Device", {
             deviceName: item.deviceName,
@@ -53,8 +53,6 @@ function DashboardScreen({ navigation }) {
       />
     );
   };
-
-  console.log(devices);
 
   return (
     <Screen style={styles.screen}>

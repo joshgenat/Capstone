@@ -7,14 +7,8 @@ import { db } from "./src/config/firebase";
 import CreateUser from "./src/components/CreateUser";
 import DeleteUser from "./src/components/DeleteUser";
 import colors from "./src/config/colors";
-import Screen from "./src/components/Screen";
-import Toggle from "./src/components/Toggle";
-import AuthNavigator from "./src/navigation/AuthNavigator";
 import navigationTheme from "./src/navigation/navigationTheme";
 import AppNavigator from "./src/navigation/AppNavigator";
-import EditDeviceScreen from "./src/screens/EditDeviceScreen";
-import SetupDeviceScreen from "./src/screens/SetupDeviceScreen";
-import RoutinesScreen from "./src/screens/RoutinesScreen";
 
 export default function App() {
   const [people, setPeople] = useState([]);
@@ -43,6 +37,7 @@ export default function App() {
     //   <Toggle></Toggle>
     // </Screen>
     <>
+      {/* <CreateUser></CreateUser> */}
       <StatusBar barStyle="dark-content"></StatusBar>
       <NavigationContainer theme={navigationTheme}>
         <AppNavigator></AppNavigator>

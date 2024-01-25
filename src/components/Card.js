@@ -5,10 +5,11 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import colors from "../config/colors";
 
 import { updateDoc, doc } from "firebase/firestore";
-import { db } from "../config/firebase";
+import { db, db2 } from "../config/firebase";
+import { getDatabase, onValue, ref, set } from "firebase/database";
 
-function Card({ title, icon, onPress, deviceId, onToggle }) {
-  const [isEnabled, setIsEnabled] = useState(false);
+function Card({ title, icon, onPress, device }) {
+  const [isEnabled, setIsEnabled] = useState(device.toggle || false);
   const [lights, setLights] = useState(
     isEnabled ? colors.primary : colors.black
   );
@@ -17,20 +18,31 @@ function Card({ title, icon, onPress, deviceId, onToggle }) {
     setLights(isEnabled ? colors.primary : colors.black);
   }, [isEnabled]);
 
-  const toggleSwitch = () => {
+  const toggleSwitch = async () => {
     const newToggleState = !isEnabled;
     setIsEnabled(newToggleState);
 
-    console.log(deviceId);
+    const firestoreRef = device.id ? doc(db, "devices", device.id) : null;
+    const realtimeRef = device.deviceName
+      ? ref(db2, "devices/" + device.deviceName)
+      : null;
 
-    // Update Firestore and optionally call the onToggle callback
-    if (deviceId) {
-      const deviceRef = doc(db, "devices", deviceId);
-      updateDoc(deviceRef, { toggle: newToggleState }).then(() => {
-        if (onToggle) {
-          onToggle(deviceId, newToggleState);
-        }
-      });
+    // Update Firestore
+    if (firestoreRef) {
+      try {
+        await updateDoc(firestoreRef, { toggle: newToggleState });
+      } catch (error) {
+        console.error("Error updating device in Firestore: ", error);
+      }
+    }
+
+    // Update Realtime Database
+    if (realtimeRef) {
+      try {
+        await set(realtimeRef, { toggle: newToggleState });
+      } catch (error) {
+        console.error("Error updating device in Realtime Database: ", error);
+      }
     }
   };
 

@@ -14,10 +14,7 @@ const validationSchema = Yup.object().shape({
 function LoginScreen({ navigation }) {
   return (
     <Screen style={styles.container}>
-      <Image
-        source={require("../assets/logo-red.png")}
-        style={styles.logo}
-      ></Image>
+      <Image source={require("../assets/logo.png")} style={styles.logo}></Image>
 
       <AppForm
         initialValues={{ email: "", password: "" }}

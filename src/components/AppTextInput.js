@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
     marginVertical: 10,
   },
   textInput: {
-    fontSize: 18,
+    fontSize: 20,
     color: colors.dark,
   },
   icon: {

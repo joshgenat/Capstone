@@ -1,15 +1,22 @@
-import React, { useState } from "react";
-import { View, StyleSheet } from "react-native";
-import DateTimePicker from "@react-native-community/datetimepicker";
+import React, { useEffect, useState } from "react";
+import { View, StyleSheet, ScrollView } from "react-native";
+import * as Yup from "yup";
 
+import { AppForm, AppFormField, SubmitButton } from "../components/forms";
 import Screen from "../components/Screen";
 import AppText from "../components/AppText";
-import AppPicker from "../components/AppPicker";
-import AppTextInput from "../components/AppTextInput";
-import AppButton from "../components/AppButton";
 
 import { addDoc, collection, onSnapshot } from "firebase/firestore";
 import { db } from "../config/firebase";
+import AppFormPicker from "../components/forms/AppFormPicker";
+import AppFormDateTimePicker from "../components/forms/AppFormDateTimePicker";
+
+const validationSchema = Yup.object().shape({
+  routineName: Yup.string().required().label("Routine Name"),
+  selectedDevice: Yup.object().required().label("Device"),
+  selectedAction: Yup.object().required().label("Action"),
+  selectedDate: Yup.date().required().nullable().label("Time"),
+});
 
 function RoutineCreateScreen({ route, navigation }) {
   const [selectedDate, setSelectedDate] = useState(new Date());
@@ -17,23 +24,7 @@ function RoutineCreateScreen({ route, navigation }) {
   const [selectedAction, setSelectedAction] = useState(null);
   const [routineName, setRoutineName] = useState("");
 
-  const devices = [
-    {
-      id: 1,
-      title: "Ceiling Lights",
-      icon: "lightbulb-outline",
-    },
-    {
-      id: 2,
-      title: "Floor Lights",
-      icon: "lightbulb-outline",
-    },
-    {
-      id: 3,
-      title: "Lightstrip",
-      icon: "lightbulb-outline",
-    },
-  ];
+  const [devices, setDevices] = useState([]);
 
   const actions = [
     {
@@ -46,72 +37,105 @@ function RoutineCreateScreen({ route, navigation }) {
     },
   ];
 
+  useEffect(() => {
+    // Subscribe to the Firestore collection
+    const unsubscribe = onSnapshot(collection(db, "devices"), (snapshot) => {
+      const loadedDevices = snapshot.docs.map((doc) => ({
+        id: doc.id,
+        title: doc.data().deviceName, // Assuming 'deviceName' is the field in Firestore
+        icon: "lightbulb-outline", // Assuming all devices use the same icon for simplicity
+      }));
+      setDevices(loadedDevices);
+    });
+
+    // Clean up the subscription when the component unmounts
+    return () => unsubscribe();
+  }, []);
+
+  async function handleSubmit(values) {
+    // Destructure the values object to get each field's value
+    const { routineName, selectedDevice, selectedAction, selectedDate } =
+      values;
+
+    try {
+      await addDoc(collection(db, "routines"), {
+        routineName: routineName,
+        device: selectedDevice.title,
+        action: selectedAction.title,
+        time: selectedDate.toTimeString().substring(0, 5),
+      });
+      // Handle success, e.g., navigate back or show a message
+    } catch (error) {
+      // Handle the error, e.g., show an error message
+    }
+  }
+
   function addRoutine() {
     const routineDb = collection(db, "routines");
     addDoc(routineDb, {
       routineName: routineName,
+      time: selectedDate ? selectedDate.toTimeString().substring(0, 5) : null,
       device: selectedDevice ? selectedDevice.title : null,
       action: selectedAction ? selectedAction.title : null,
-      time: selectedDate ? selectedDate.toTimeString().substring(0, 5) : null,
     });
   }
 
   return (
     <Screen>
-      <View style={styles.container}>
-        <View style={styles.section}>
-          <AppTextInput
-            name="routine"
-            placeholder="Enter Routine name"
-            value={routineName}
-            onChangeText={setRoutineName}
-          ></AppTextInput>
-        </View>
-        <View style={styles.section}>
-          <AppText style={styles.text}>Choose time of day</AppText>
-          <DateTimePicker
-            mode="time"
-            display="spinner"
-            value={selectedDate}
-            onChange={(event, selectedDate) => setSelectedDate(selectedDate)}
-            style={styles.datePicker}
-          ></DateTimePicker>
-        </View>
+      <ScrollView style={styles.scrollView}>
+        <View style={styles.container}>
+          <AppForm
+            initialValues={{
+              routineName: "",
+              selectedDevice: null,
+              selectedAction: null,
+              selectedDate: new Date(),
+            }}
+            onSubmit={handleSubmit}
+            validationSchema={validationSchema}
+          >
+            <View style={styles.section}>
+              <AppFormField
+                name="routineName"
+                placeholder="Enter Routine Name"
+              />
+            </View>
 
-        <View style={styles.section}>
-          <AppText style={styles.text}>
-            Choose device(s) for this routine
-          </AppText>
-          <AppPicker
-            placeholder="Add Device"
-            icon="plus"
-            selectedItem={selectedDevice}
-            onSelectItem={(item) => setSelectedDevice(item)}
-            items={devices}
-          ></AppPicker>
-        </View>
+            <AppText style={styles.text}>Choose time of day</AppText>
+            <View style={styles.section}>
+              <AppFormDateTimePicker name="selectedDate" />
+            </View>
 
-        <View style={styles.section}>
-          <AppText style={styles.text}>
-            Choose an action for this routine
-          </AppText>
-          <AppPicker
-            placeholder="Choose Action"
-            icon="playlist-edit"
-            selectedItem={selectedAction}
-            onSelectItem={(item) => setSelectedAction(item)}
-            items={actions}
-          ></AppPicker>
-        </View>
+            <AppText style={styles.text}>
+              Choose device(s) for this routine
+            </AppText>
+            <View style={styles.section}>
+              <AppFormPicker
+                name="selectedDevice"
+                items={devices}
+                placeholder="Select a device"
+                icon="plus"
+              />
+            </View>
 
-        <View style={styles.button}>
-          <AppButton
-            title="Submit"
-            color="primary"
-            onPress={addRoutine}
-          ></AppButton>
+            <AppText style={styles.text}>
+              Choose an action for this routine
+            </AppText>
+            <View style={styles.section}>
+              <AppFormPicker
+                name="selectedAction"
+                items={actions}
+                icon="playlist-edit"
+                placeholder="Select an action"
+              />
+            </View>
+
+            <View style={styles.button}>
+              <SubmitButton title="Submit" />
+            </View>
+          </AppForm>
         </View>
-      </View>
+      </ScrollView>
     </Screen>
   );
 }

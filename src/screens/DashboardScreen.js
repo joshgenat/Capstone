@@ -59,11 +59,13 @@ function DashboardScreen({ navigation }) {
           />
         );
       case "Thermometer":
+        const iconColor = getThermometerIconColor(item);
         return (
           <CardThermometer
             title={item.deviceName}
             device={item}
             icon={icon}
+            iconColor={iconColor}
             onPress={() =>
               navigation.navigate("Edit Thermometer", {
                 deviceData: item,
@@ -89,6 +91,19 @@ function DashboardScreen({ navigation }) {
         return "video";
     }
   }
+
+  const getThermometerIconColor = (device) => {
+    const currentTemp = parseFloat(device.currentTemp);
+    const setTemp = parseFloat(device.setTemp);
+
+    if (setTemp > currentTemp) {
+      return colors.heat; // Heating
+    } else if (setTemp < currentTemp) {
+      return colors.cool; // Cooling
+    } else {
+      return colors.primary; // Neutral or equal
+    }
+  };
 
   return (
     <Screen style={styles.screen}>

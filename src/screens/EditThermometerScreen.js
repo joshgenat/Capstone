@@ -8,13 +8,7 @@ import AppText from "../components/AppText";
 import AppTextInput from "../components/AppTextInput";
 import AppButton from "../components/AppButton";
 
-import {
-  deleteDoc,
-  doc,
-  updateDoc,
-  collection,
-  onSnapshot,
-} from "firebase/firestore";
+import { deleteDoc, doc, updateDoc } from "firebase/firestore";
 import { db } from "../config/firebase";
 
 function EditThermometerScreen({ route, navigation }) {
@@ -25,16 +19,6 @@ function EditThermometerScreen({ route, navigation }) {
 
   const deviceData = route.params?.deviceData;
   const icon = route.params?.icon;
-
-  useEffect(() => {
-    const usersQuery = collection(db, "devices");
-    onSnapshot(usersQuery, (snapshot) => {
-      let usersList = snapshot.docs.map((doc) => ({
-        ...doc.data(),
-        id: doc.id,
-      }));
-    });
-  }, []);
 
   // Save changes to the device name (this is just a placeholder, adjust based on your needs)
   const saveDevice = async () => {
@@ -62,12 +46,32 @@ function EditThermometerScreen({ route, navigation }) {
       // Handle the error, perhaps show a message to the user
     }
   };
+  // Determine the icon color based on temperature comparison
+  const getIconColor = () => {
+    const currentTemp = parseFloat(deviceData.currentTemp);
+    const setTempValue = parseFloat(deviceData.setTemp);
+
+    console.log(currentTemp);
+    console.log(setTempValue);
+
+    if (setTempValue > currentTemp) {
+      return colors.heat; // Heating
+    } else if (setTempValue < currentTemp) {
+      return colors.cool; // Cooling
+    } else {
+      return colors.black; // Neutral or equal
+    }
+  };
 
   return (
     <Screen style={styles.container}>
       <ScrollView>
         <View style={styles.icon}>
-          <MaterialCommunityIcons name={icon} size={50} />
+          <MaterialCommunityIcons
+            name={icon}
+            size={50}
+            color={getIconColor()}
+          />
         </View>
         <View style={styles.content}>
           <AppTextInput
@@ -153,7 +157,6 @@ const styles = StyleSheet.create({
     justifyContent: "flex-end",
     alignItems: "center",
   },
-
   celsiusSymbol: {
     marginLeft: -10, // Reduced space between text input and Celsius symbol
   },

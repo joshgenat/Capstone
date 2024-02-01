@@ -11,6 +11,7 @@ import AppText from "../components/AppText";
 import SetupDeviceScreen from "../screens/SetupDeviceScreen";
 import PairDeviceScreen from "../screens/PairDeviceScreen";
 import AddDeviceScreen from "../screens/AddDeviceScreen";
+import EditThermometerScreen from "../screens/EditThermometerScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -47,6 +48,7 @@ const DashboardNavigator = () => (
   >
     <Stack.Screen name="Your Dashboard" component={DashboardScreen} />
     <Stack.Screen name="Edit Device" component={EditDeviceScreen} />
+    <Stack.Screen name="Edit Thermometer" component={EditThermometerScreen} />
     <Stack.Screen name="Setup Device" component={SetupDeviceScreen} />
     <Stack.Screen name="Search Device" component={SearchDeviceScreen} />
     <Stack.Screen name="Pair Device" component={PairDeviceScreen} />

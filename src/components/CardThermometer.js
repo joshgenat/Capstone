@@ -7,20 +7,13 @@ import colors from "../config/colors";
 import { updateDoc, doc } from "firebase/firestore";
 import { db, db2 } from "../config/firebase";
 import { getDatabase, onValue, ref, set } from "firebase/database";
+import AppText from "./AppText";
 
-function Card({ title, icon, onPress, device }) {
-  const [isEnabled, setIsEnabled] = useState(device.toggle ? 1 : 0);
-  const [lights, setLights] = useState(
-    isEnabled ? colors.primary : colors.black
-  );
-
-  useEffect(() => {
-    setLights(isEnabled ? colors.primary : colors.black);
-  }, [isEnabled]);
+function CardThermometer({ title, icon, onPress, device }) {
+  const [temperature, setTemperature] = useState(null);
 
   const toggleSwitch = async () => {
-    const newToggleState = isEnabled === 1 ? 0 : 1;
-    setIsEnabled(newToggleState);
+    const newToggleState = setTemperature;
 
     const firestoreRef = device.id ? doc(db, "devices", device.id) : null;
     const realtimeRef = device.deviceName
@@ -30,7 +23,7 @@ function Card({ title, icon, onPress, device }) {
     // Update Firestore
     if (firestoreRef) {
       try {
-        await updateDoc(firestoreRef, { toggle: newToggleState });
+        await updateDoc(firestoreRef, { setTemp: temperature });
       } catch (error) {
         console.error("Error updating device in Firestore: ", error);
       }
@@ -39,7 +32,7 @@ function Card({ title, icon, onPress, device }) {
     // Update Realtime Database
     if (realtimeRef) {
       try {
-        await set(realtimeRef, { toggle: newToggleState });
+        await set(realtimeRef, { setTemp: temperature });
       } catch (error) {
         console.error("Error updating device in Realtime Database: ", error);
       }
@@ -50,13 +43,11 @@ function Card({ title, icon, onPress, device }) {
     <View style={styles.card}>
       <TouchableOpacity onPress={onPress} style={styles.touchableArea}>
         <View style={styles.contentContainer}>
-          <MaterialCommunityIcons name={icon} size={50} color={lights} />
+          <MaterialCommunityIcons name={icon} size={50} color={colors.black} />
           <Text style={styles.title}>{title}</Text>
+          <AppText style={styles.text}>{device.currentTemp}°C</AppText>
         </View>
       </TouchableOpacity>
-      <View style={styles.toggleContainer}>
-        <Switch value={isEnabled === 1} onValueChange={toggleSwitch} />
-      </View>
     </View>
   );
 }
@@ -104,6 +95,10 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
+  text: {
+    fontSize: 22,
+    fontWeight: "bold",
+  },
 });
 
-export default Card;
+export default CardThermometer;

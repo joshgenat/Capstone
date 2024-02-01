@@ -4,6 +4,7 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 import Screen from "../components/Screen";
 import colors from "../config/colors";
+import AppText from "../components/AppText";
 import AppTextInput from "../components/AppTextInput";
 import AppButton from "../components/AppButton";
 
@@ -11,14 +12,18 @@ import { deleteDoc, doc, updateDoc } from "firebase/firestore";
 import { db } from "../config/firebase";
 
 function EditDeviceScreen({ route, navigation }) {
-  const [newDeviceName, setNewDeviceName] = useState(route.params.deviceName);
-  const deviceId = route.params.id; // Assuming 'id' is passed via params
+  const [newDeviceName, setNewDeviceName] = useState(
+    route.params.deviceData.deviceName
+  );
+
+  const deviceData = route.params?.deviceData;
+  const icon = route.params?.icon;
 
   // Save changes to the device name (this is just a placeholder, adjust based on your needs)
   const saveDevice = async () => {
     try {
       // Assuming the document has a 'deviceName' field that you want to update
-      const deviceRef = doc(db, "devices", deviceId);
+      const deviceRef = doc(db, "devices", deviceData.id);
       await updateDoc(deviceRef, { deviceName: newDeviceName });
       navigation.navigate("Your Dashboard");
     } catch (error) {
@@ -30,7 +35,7 @@ function EditDeviceScreen({ route, navigation }) {
   // Delete the device
   const deleteDevice = async () => {
     try {
-      await deleteDoc(doc(db, "devices", deviceId));
+      await deleteDoc(doc(db, "devices", deviceData.id));
       navigation.navigate("Your Dashboard");
     } catch (error) {
       console.error("Error deleting device: ", error);
@@ -38,12 +43,10 @@ function EditDeviceScreen({ route, navigation }) {
     }
   };
 
-  // const placeholderText = deviceName ? `${deviceName}` : "Enter Device Name";
-
   return (
     <Screen style={styles.container}>
       <View style={styles.icon}>
-        <MaterialCommunityIcons name="lightbulb-outline" size={50} />
+        <MaterialCommunityIcons name={icon} size={50} />
       </View>
       <View style={styles.content}>
         <AppTextInput
@@ -55,6 +58,7 @@ function EditDeviceScreen({ route, navigation }) {
           onChangeText={setNewDeviceName}
         ></AppTextInput>
       </View>
+
       <View style={styles.button}>
         <AppButton
           title="Save Changes"

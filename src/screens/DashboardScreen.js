@@ -3,6 +3,7 @@ import { StyleSheet, FlatList, View } from "react-native";
 
 import Screen from "../components/Screen";
 import Card from "../components/Card";
+import CardThermometer from "../components/CardThermometer";
 import colors from "../config/colors";
 
 import { collection, onSnapshot } from "firebase/firestore";
@@ -39,20 +40,55 @@ function DashboardScreen({ navigation }) {
         <View style={{ width: "45%", height: 250, marginHorizontal: 25 }} />
       );
     }
-    return (
-      <Card
-        title={item.deviceName}
-        icon="lightbulb-outline"
-        device={item}
-        onPress={() =>
-          navigation.navigate("Edit Device", {
-            deviceName: item.deviceName,
-            id: item.id,
-          })
-        }
-      />
-    );
+
+    const icon = getIconForDeviceType(item.deviceType);
+    // Determine the type of card to render based on deviceType
+    switch (item.deviceType) {
+      case "Lights":
+        return (
+          <Card
+            title={item.deviceName}
+            icon={icon}
+            device={item}
+            onPress={() =>
+              navigation.navigate("Edit Device", {
+                deviceData: item,
+                icon: icon,
+              })
+            }
+          />
+        );
+      case "Thermometer":
+        return (
+          <CardThermometer
+            title={item.deviceName}
+            device={item}
+            icon={icon}
+            onPress={() =>
+              navigation.navigate("Edit Thermometer", {
+                deviceData: item,
+                icon: icon,
+              })
+            }
+          />
+        );
+      default:
+        return null; // or some default card if deviceType is unknown
+    }
   };
+
+  function getIconForDeviceType(deviceType) {
+    switch (deviceType) {
+      case "Lights":
+        return "lightbulb-outline";
+      case "Sensor":
+        return "smoke-detector";
+      case "Thermometer":
+        return "thermometer";
+      case "camera":
+        return "video";
+    }
+  }
 
   return (
     <Screen style={styles.screen}>

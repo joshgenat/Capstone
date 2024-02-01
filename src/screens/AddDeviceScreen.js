@@ -12,6 +12,7 @@ import { db } from "../config/firebase";
 
 function AddDeviceScreen({ route, navigation }) {
   const { deviceName } = route.params; // Extract deviceName from route.params
+  const { deviceType } = route.params;
 
   const placeholderText = deviceName ? `${deviceName}` : "Enter Device Name";
 
@@ -25,7 +26,8 @@ function AddDeviceScreen({ route, navigation }) {
     try {
       await addDoc(deviceDb, {
         deviceName,
-        toggle: false, // Assuming default toggle state is false
+        toggle: 0, // Assuming default toggle state is false
+        deviceType,
       });
       navigation.navigate("Your Dashboard");
     } catch (error) {

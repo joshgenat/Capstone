@@ -10,11 +10,19 @@ function PairDeviceScreen({ navigation }) {
       id: 1,
       title: "Light Bulb",
       icon: "lightbulb-outline",
+      type: "Lights",
     },
     {
       id: 2,
       title: "Lightstrip",
       icon: "lightbulb-outline",
+      type: "Lights",
+    },
+    {
+      id: 3,
+      title: "Thermometer",
+      icon: "thermometer",
+      type: "Thermometer",
     },
   ];
 
@@ -28,7 +36,10 @@ function PairDeviceScreen({ navigation }) {
           icon={item.icon}
           toggleIcon="chevron-right"
           onPress={() =>
-            navigation.navigate("Add Device", { deviceName: item.title })
+            navigation.navigate("Add Device", {
+              deviceName: item.title,
+              deviceType: item.type,
+            })
           }
         ></ListItem>
       ))}

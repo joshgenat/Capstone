@@ -74,6 +74,20 @@ function DashboardScreen({ navigation }) {
             }
           />
         );
+      case "Sensor":
+        return (
+          <Card
+            title={item.deviceName}
+            icon={icon}
+            device={item}
+            onPress={() =>
+              navigation.navigate("Edit Device", {
+                deviceData: item,
+                icon: icon,
+              })
+            }
+          />
+        );
       default:
         return null; // or some default card if deviceType is unknown
     }

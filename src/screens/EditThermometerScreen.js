@@ -51,9 +51,6 @@ function EditThermometerScreen({ route, navigation }) {
     const currentTemp = parseFloat(deviceData.currentTemp);
     const setTempValue = parseFloat(deviceData.setTemp);
 
-    console.log(currentTemp);
-    console.log(setTempValue);
-
     if (setTempValue > currentTemp) {
       return colors.heat; // Heating
     } else if (setTempValue < currentTemp) {

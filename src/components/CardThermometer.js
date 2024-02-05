@@ -14,7 +14,7 @@ function CardThermometer({ title, icon, onPress, device, iconColor }) {
 
   const toggleSwitch = async () => {
     const newToggleState = setTemperature;
-
+    console.log("toggle");
     const firestoreRef = device.id ? doc(db, "devices", device.id) : null;
     const realtimeRef = device.deviceName
       ? ref(db2, "devices/" + device.deviceName)
@@ -24,6 +24,8 @@ function CardThermometer({ title, icon, onPress, device, iconColor }) {
     if (firestoreRef) {
       try {
         await updateDoc(firestoreRef, { setTemp: temperature });
+
+        console.log("firestore");
       } catch (error) {
         console.error("Error updating device in Firestore: ", error);
       }
@@ -33,6 +35,7 @@ function CardThermometer({ title, icon, onPress, device, iconColor }) {
     if (realtimeRef) {
       try {
         await set(realtimeRef, { setTemp: temperature });
+        console.log("realtime");
       } catch (error) {
         console.error("Error updating device in Realtime Database: ", error);
       }

@@ -9,7 +9,8 @@ import AppTextInput from "../components/AppTextInput";
 import AppButton from "../components/AppButton";
 
 import { deleteDoc, doc, updateDoc } from "firebase/firestore";
-import { db } from "../config/firebase";
+import { db, db2 } from "../config/firebase";
+import { ref, set } from "firebase/database";
 
 function EditThermometerScreen({ route, navigation }) {
   const [newDeviceName, setNewDeviceName] = useState(
@@ -20,16 +21,24 @@ function EditThermometerScreen({ route, navigation }) {
   const deviceData = route.params?.deviceData;
   const icon = route.params?.icon;
 
+  console.log(deviceData);
   // Save changes to the device name (this is just a placeholder, adjust based on your needs)
   const saveDevice = async () => {
     try {
       // Assuming the document has a 'deviceName' field that you want to update
-      const deviceRef = doc(db, "devices", deviceData.id);
+      const firestoreRef = doc(db, "devices", deviceData.id);
+      const realtimeRef = ref(db2, "devices/" + deviceData.deviceName);
 
-      await updateDoc(deviceRef, {
+      await updateDoc(firestoreRef, {
         deviceName: newDeviceName,
         setTemp: parseFloat(temp) || 0,
       });
+
+      await set(realtimeRef, {
+        currentTemp: deviceData.currentTemp,
+        setTemp: parseFloat(temp) || 0, // Ensure temp is a float
+      });
+
       navigation.navigate("Your Dashboard");
     } catch (error) {
       console.error("Error saving device: ", error);

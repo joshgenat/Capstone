@@ -7,16 +7,19 @@ import CardThermometer from "../components/CardThermometer";
 import colors from "../config/colors";
 
 import { collection, onSnapshot } from "firebase/firestore";
-import { db } from "../config/firebase";
+import { db, db2 } from "../config/firebase";
+import { ref, onValue } from "firebase/database";
 
 function DashboardScreen({ navigation }) {
   // read devices from firebase
   const [devices, setDevices] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [thermometers, setThermometers] = useState([]);
 
   useEffect(() => {
     setLoading(true);
     const usersQuery = collection(db, "devices");
+
     onSnapshot(usersQuery, (snapshot) => {
       let usersList = snapshot.docs.map((doc) => ({
         ...doc.data(),
@@ -31,7 +34,17 @@ function DashboardScreen({ navigation }) {
       setDevices(usersList);
       setLoading(false);
     });
+    readRealtime();
   }, []);
+
+  function readRealtime() {
+    const realtimeRef = ref(db2, "devices/Thermometer");
+    onValue(realtimeRef, (snapshot) => {
+      const data = snapshot.val();
+
+      setThermometers(data);
+    });
+  }
 
   const renderItem = ({ item }) => {
     if (item.fake) {
@@ -66,10 +79,12 @@ function DashboardScreen({ navigation }) {
             device={item}
             icon={icon}
             iconColor={iconColor}
+            currentTemp={thermometers.currentTemp}
             onPress={() =>
               navigation.navigate("Edit Thermometer", {
                 deviceData: item,
                 icon: icon,
+                currentTemp: thermometers.currentTemp,
               })
             }
           />

@@ -9,7 +9,14 @@ import { db, db2 } from "../config/firebase";
 import { getDatabase, onValue, ref, set } from "firebase/database";
 import AppText from "./AppText";
 
-function CardThermometer({ title, icon, onPress, device, iconColor }) {
+function CardThermometer({
+  title,
+  icon,
+  onPress,
+  device,
+  iconColor,
+  currentTemp,
+}) {
   const [temperature, setTemperature] = useState(null);
 
   const toggleSwitch = async () => {
@@ -48,7 +55,7 @@ function CardThermometer({ title, icon, onPress, device, iconColor }) {
         <View style={styles.contentContainer}>
           <MaterialCommunityIcons name={icon} size={50} color={iconColor} />
           <Text style={styles.title}>{title}</Text>
-          <AppText style={styles.text}>{device.currentTemp}°C</AppText>
+          <AppText style={styles.text}>{currentTemp}°C</AppText>
         </View>
       </TouchableOpacity>
     </View>

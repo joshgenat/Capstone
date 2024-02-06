@@ -20,8 +20,9 @@ function EditThermometerScreen({ route, navigation }) {
 
   const deviceData = route.params?.deviceData;
   const icon = route.params?.icon;
+  const currentTemp = route.params.currentTemp;
+  console.log(currentTemp);
 
-  console.log(deviceData);
   // Save changes to the device name (this is just a placeholder, adjust based on your needs)
   const saveDevice = async () => {
     try {
@@ -91,7 +92,7 @@ function EditThermometerScreen({ route, navigation }) {
 
           <View style={styles.tempRow}>
             <AppText style={styles.tempLabel}>Current Temperature:</AppText>
-            <AppText>{deviceData.currentTemp}°C</AppText>
+            <AppText>{currentTemp}°C</AppText>
           </View>
 
           <View style={styles.tempRow}>

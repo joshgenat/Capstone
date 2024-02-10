@@ -15,6 +15,7 @@ function AnalyticsScreen(props) {
   // read devices from firebase
   const [devices, setDevices] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [totalUsageTime, setTotalUsageTime] = useState("");
 
   useEffect(() => {
     setLoading(true);
@@ -24,8 +25,8 @@ function AnalyticsScreen(props) {
         ...doc.data(),
         id: doc.id,
       }));
-
       setDevices(usersList);
+      calculateTotalUsageTime(usersList);
       setLoading(false);
     });
   }, []);
@@ -36,18 +37,30 @@ function AnalyticsScreen(props) {
         <ListItem
           title={item.deviceName}
           icon="lightbulb-outline"
-          rightText="6h 25min"
+          rightText={item.timeUsed}
         ></ListItem>
         <ListItemSeperator></ListItemSeperator>
       </>
     );
   };
 
+  const calculateTotalUsageTime = (devices) => {
+    let totalMinutes = 0;
+    devices.forEach((device) => {
+      const [hours, minutes] = device.timeUsed.split(/[hmin ]+/).map(Number);
+      totalMinutes += hours * 60 + minutes;
+    });
+
+    const totalHours = Math.floor(totalMinutes / 60);
+    const remainingMinutes = totalMinutes % 60;
+    setTotalUsageTime(`${totalHours}h ${remainingMinutes}min`);
+  };
+
   return (
     <Screen style={styles.container}>
       <CardWide
         subTextLeft="Total Usage Time"
-        subTextRight="13h 25min"
+        subTextRight={totalUsageTime}
         style={styles.card}
         chart
         toggle

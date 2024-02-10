@@ -9,6 +9,7 @@ import colors from "../config/colors";
 import { collection, onSnapshot } from "firebase/firestore";
 import { db, db2 } from "../config/firebase";
 import { ref, onValue } from "firebase/database";
+import CardSensor from "../components/CardSensor";
 
 function DashboardScreen({ navigation }) {
   // read devices from firebase
@@ -91,7 +92,7 @@ function DashboardScreen({ navigation }) {
         );
       case "Sensor":
         return (
-          <Card
+          <CardSensor
             title={item.deviceName}
             icon={icon}
             device={item}

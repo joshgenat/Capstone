@@ -16,6 +16,7 @@ function DashboardScreen({ navigation }) {
   const [devices, setDevices] = useState([]);
   const [loading, setLoading] = useState(false);
   const [thermometers, setThermometers] = useState([]);
+  const [sensors, setSensors] = useState({});
 
   useEffect(() => {
     setLoading(true);
@@ -35,15 +36,24 @@ function DashboardScreen({ navigation }) {
       setDevices(usersList);
       setLoading(false);
     });
-    readRealtime();
+    readRealtimeThermometer();
+    readRealtimeSensor();
   }, []);
 
-  function readRealtime() {
+  function readRealtimeThermometer() {
     const realtimeRef = ref(db2, "devices/Thermometer");
     onValue(realtimeRef, (snapshot) => {
       const data = snapshot.val();
 
       setThermometers(data);
+    });
+  }
+
+  function readRealtimeSensor() {
+    const realtimeRef = ref(db2, "devices/FlameSensor");
+    onValue(realtimeRef, (snapshot) => {
+      const data = snapshot.val();
+      setSensors(data); // Adjust based on your data structure
     });
   }
 
@@ -73,13 +83,13 @@ function DashboardScreen({ navigation }) {
           />
         );
       case "Thermometer":
-        const iconColor = getThermometerIconColor(item);
+        const thermometerIconColor = getThermometerIconColor(item);
         return (
           <CardThermometer
             title={item.deviceName}
             device={item}
             icon={icon}
-            iconColor={iconColor}
+            iconColor={thermometerIconColor}
             currentTemp={thermometers.currentTemp}
             onPress={() =>
               navigation.navigate("Edit Thermometer", {
@@ -91,15 +101,21 @@ function DashboardScreen({ navigation }) {
           />
         );
       case "Sensor":
+        // console.log(sensors.toggle);
+        const sensorColor = sensors.toggle ? colors.danger : colors.black;
         return (
           <CardSensor
             title={item.deviceName}
             icon={icon}
             device={item}
+            iconColor={sensorColor}
+            status={sensors.toggle}
             onPress={() =>
-              navigation.navigate("Edit Device", {
+              navigation.navigate("Edit Sensor", {
                 deviceData: item,
                 icon: icon,
+                toggle: sensors.toggle,
+                iconColor: sensorColor,
               })
             }
           />
@@ -114,7 +130,7 @@ function DashboardScreen({ navigation }) {
       case "Lights":
         return "lightbulb-outline";
       case "Sensor":
-        return "smoke-detector";
+        return "smoke-detector-outline";
       case "Thermometer":
         return "thermometer";
       case "camera":

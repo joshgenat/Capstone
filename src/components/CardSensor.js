@@ -1,11 +1,13 @@
 import React from "react";
-import { View, StyleSheet, Text, Switch, TouchableOpacity } from "react-native";
+import { View, StyleSheet, Text, TouchableOpacity } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 import colors from "../config/colors";
 import AppText from "./AppText";
 
-function CardSensor({ title, icon, onPress, iconColor }) {
+function CardSensor({ title, icon, onPress, iconColor, status }) {
+  // const getStatusText = status === 1 ? "ON" : "OFF";
+
   return (
     <View style={styles.card}>
       <TouchableOpacity onPress={onPress} style={styles.touchableArea}>

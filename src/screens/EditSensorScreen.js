@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { ScrollView, StyleSheet, View } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
@@ -10,19 +10,30 @@ import AppButton from "../components/AppButton";
 
 import { deleteDoc, doc, updateDoc } from "firebase/firestore";
 import { db, db2 } from "../config/firebase";
-import { ref, set } from "firebase/database";
+import { ref, set, onValue } from "firebase/database";
 
 function EditSensorScreen({ route, navigation }) {
   const [newDeviceName, setNewDeviceName] = useState(
     route.params.deviceData.deviceName
   );
+  const [toggleStatus, setToggleStatus] = useState(route.params.toggle); // Initial toggle status passed through route.params
 
   const deviceData = route.params?.deviceData;
   const icon = route.params?.icon;
   const iconColor = route.params?.iconColor;
-  const toggleStatus = route.params?.toggle;
 
-  // console.log(deviceData.toggle);
+  useEffect(() => {
+    // Listen for real-time updates to the sensor's toggle status
+    console.log(deviceData.deviceName);
+    const toggleRef = ref(db2, `devices/${deviceData.deviceName}/toggle`);
+    const unsubscribe = onValue(toggleRef, (snapshot) => {
+      const currentToggleStatus = snapshot.val();
+      setToggleStatus(currentToggleStatus); // Update state with new toggle status
+    });
+
+    // Cleanup subscription on component unmount
+    return () => unsubscribe();
+  }, [deviceData.deviceName]);
 
   // Save changes to the device name (this is just a placeholder, adjust based on your needs)
   const saveDevice = async () => {
@@ -56,15 +67,21 @@ function EditSensorScreen({ route, navigation }) {
       // Handle the error, perhaps show a message to the user
     }
   };
-  // Determine the icon color based on temperature comparison
 
-  const getStatusText = (toggle) => (toggle === 1 ? "ON" : "OFF");
+  // Function to dynamically determine icon color
+  const getDynamicIconColor = () => {
+    return toggleStatus === 1 ? colors.danger : colors.black; // Example: Heat for ON, Cool for OFF
+  };
 
   return (
     <Screen style={styles.container}>
       <ScrollView>
         <View style={styles.icon}>
-          <MaterialCommunityIcons name={icon} size={50} color={iconColor} />
+          <MaterialCommunityIcons
+            name={icon}
+            size={50}
+            color={getDynamicIconColor()}
+          />
         </View>
         <View style={styles.content}>
           <AppTextInput

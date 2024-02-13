@@ -50,7 +50,7 @@ function DashboardScreen({ navigation }) {
   }
 
   function readRealtimeSensor() {
-    const realtimeRef = ref(db2, "devices/FlameSensor");
+    const realtimeRef = ref(db2, "devices/Flame Sensor");
     onValue(realtimeRef, (snapshot) => {
       const data = snapshot.val();
       setSensors(data); // Adjust based on your data structure

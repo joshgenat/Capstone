@@ -3,6 +3,7 @@ import { View, StyleSheet, Text, Switch, TouchableOpacity } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 import colors from "../config/colors";
+import { toggleLed } from "../config/apiService";
 
 import { updateDoc, doc } from "firebase/firestore";
 import { db, db2 } from "../config/firebase";
@@ -22,28 +23,37 @@ function Card({ title, icon, onPress, device }) {
     const newToggleState = isEnabled === 1 ? 0 : 1;
     setIsEnabled(newToggleState);
 
-    const firestoreRef = device.id ? doc(db, "devices", device.id) : null;
-    const realtimeRef = device.deviceName
-      ? ref(db2, "devices/" + device.deviceName)
-      : null;
-
-    // Update Firestore
-    if (firestoreRef) {
-      try {
-        await updateDoc(firestoreRef, { toggle: newToggleState });
-      } catch (error) {
-        console.error("Error updating device in Firestore: ", error);
-      }
+    try {
+      await toggleLed(newToggleState);
+      console.log("Toggle state updated successfully");
+      // Optionally, fetch any necessary data again to reflect changes
+    } catch (error) {
+      console.error("Error toggling LED:", error);
+      // Handle the error (e.g., show an error message to the user)
     }
 
-    // Update Realtime Database
-    if (realtimeRef) {
-      try {
-        await set(realtimeRef, { toggle: newToggleState });
-      } catch (error) {
-        console.error("Error updating device in Realtime Database: ", error);
-      }
-    }
+    //   const firestoreRef = device.id ? doc(db, "devices", device.id) : null;
+    //   const realtimeRef = device.deviceName
+    //     ? ref(db2, "devices/" + device.deviceName)
+    //     : null;
+
+    //   // Update Firestore
+    //   if (firestoreRef) {
+    //     try {
+    //       await updateDoc(firestoreRef, { toggle: newToggleState });
+    //     } catch (error) {
+    //       console.error("Error updating device in Firestore: ", error);
+    //     }
+    //   }
+
+    //   // Update Realtime Database
+    //   if (realtimeRef) {
+    //     try {
+    //       await set(realtimeRef, { toggle: newToggleState });
+    //     } catch (error) {
+    //       console.error("Error updating device in Realtime Database: ", error);
+    //     }
+    //   }
   };
 
   return (

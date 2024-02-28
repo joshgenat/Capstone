@@ -5,11 +5,12 @@ import * as Yup from "yup";
 import { AppForm, AppFormField, SubmitButton } from "../components/forms";
 import Screen from "../components/Screen";
 import AppText from "../components/AppText";
+import CustomActionPicker from "../components/CustomActionPicker";
+import AppFormPicker from "../components/forms/AppFormPicker";
+import AppFormDateTimePicker from "../components/forms/AppFormDateTimePicker";
 
 import { addDoc, collection, onSnapshot } from "firebase/firestore";
 import { db } from "../config/firebase";
-import AppFormPicker from "../components/forms/AppFormPicker";
-import AppFormDateTimePicker from "../components/forms/AppFormDateTimePicker";
 
 const validationSchema = Yup.object().shape({
   routineName: Yup.string().required().label("Routine Name"),
@@ -26,25 +27,22 @@ function RoutineCreateScreen({ route, navigation }) {
 
   const [devices, setDevices] = useState([]);
 
-  const actions = [
-    {
-      id: 1,
-      title: "Turn On",
-    },
-    {
-      id: 2,
-      title: "Turn Off",
-    },
-  ];
-
   useEffect(() => {
     // Subscribe to the Firestore collection
     const unsubscribe = onSnapshot(collection(db, "devices"), (snapshot) => {
-      const loadedDevices = snapshot.docs.map((doc) => ({
-        id: doc.id,
-        title: doc.data().deviceName, // Assuming 'deviceName' is the field in Firestore
-        icon: "lightbulb-outline", // Assuming all devices use the same icon for simplicity
-      }));
+      const loadedDevices = snapshot.docs
+        .map((doc) => ({
+          id: doc.id,
+          title: doc.data().deviceName, // Assuming 'deviceName' is the field in Firestore
+          deviceType: doc.data().deviceType,
+        }))
+        .filter(
+          (device) =>
+            device.deviceType === "Thermometer" ||
+            device.deviceType === "Lights"
+        ); // Filter devices here
+
+      console.log(loadedDevices);
       setDevices(loadedDevices);
     });
 
@@ -68,16 +66,6 @@ function RoutineCreateScreen({ route, navigation }) {
     } catch (error) {
       // Handle the error, e.g., show an error message
     }
-  }
-
-  function addRoutine() {
-    const routineDb = collection(db, "routines");
-    addDoc(routineDb, {
-      routineName: routineName,
-      time: selectedDate ? selectedDate.toTimeString().substring(0, 5) : null,
-      device: selectedDevice ? selectedDevice.title : null,
-      action: selectedAction ? selectedAction.title : null,
-    });
   }
 
   return (
@@ -115,6 +103,7 @@ function RoutineCreateScreen({ route, navigation }) {
                 items={devices}
                 placeholder="Select a device"
                 icon="plus"
+                onSelectItem={(item) => setSelectedDevice(item)}
               />
             </View>
 
@@ -122,12 +111,7 @@ function RoutineCreateScreen({ route, navigation }) {
               Choose an action for this routine
             </AppText>
             <View style={styles.section}>
-              <AppFormPicker
-                name="selectedAction"
-                items={actions}
-                icon="playlist-edit"
-                placeholder="Select an action"
-              />
+              <CustomActionPicker name="selectedAction" icon="playlist-edit" />
             </View>
 
             <View style={styles.button}>

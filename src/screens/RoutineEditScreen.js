@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { View, StyleSheet, ScrollView } from "react-native";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import * as Yup from "yup";
@@ -7,7 +7,14 @@ import Screen from "../components/Screen";
 import AppText from "../components/AppText";
 import AppPicker from "../components/AppPicker";
 
-import { deleteDoc, doc, updateDoc } from "firebase/firestore";
+import {
+  addDoc,
+  deleteDoc,
+  doc,
+  updateDoc,
+  collection,
+  onSnapshot,
+} from "firebase/firestore";
 import { db } from "../config/firebase";
 import AppTextInput from "../components/AppTextInput";
 import AppButton from "../components/AppButton";
@@ -17,26 +24,8 @@ import AppButton from "../components/AppButton";
 // });
 
 function RoutineEditScreen({ route, navigation }) {
-  const [device, setDevice] = useState();
+  const [devices, setDevices] = useState([]);
   const [action, setAction] = useState();
-
-  const devices = [
-    {
-      id: 1,
-      title: "Ceiling Lights",
-      icon: "lightbulb-outline",
-    },
-    {
-      id: 2,
-      title: "Floor Lights",
-      icon: "lightbulb-outline",
-    },
-    {
-      id: 3,
-      title: "Lightstrip",
-      icon: "lightbulb-outline",
-    },
-  ];
 
   const actions = [
     {
@@ -51,6 +40,40 @@ function RoutineEditScreen({ route, navigation }) {
 
   const routine = route.params?.routineData;
   const routineId = route.params.id; // Assuming 'id' is passed via params
+
+  useEffect(() => {
+    // Subscribe to the Firestore collection
+    const unsubscribe = onSnapshot(collection(db, "devices"), (snapshot) => {
+      const loadedDevices = snapshot.docs
+        .map((doc) => ({
+          id: doc.id,
+          title: doc.data().deviceName, // Assuming 'deviceName' is the field in Firestore
+          deviceType: doc.data().deviceType,
+        }))
+        .filter(
+          (device) =>
+            device.deviceType === "Thermometer" ||
+            device.deviceType === "Lights"
+        ); // Filter devices here
+      setDevices(loadedDevices);
+
+      // After devices are loaded, find and set the selectedDevice based on the routine
+      if (routine) {
+        const foundDevice = loadedDevices.find(
+          (device) => device.title === routine.device
+        );
+        setSelectedDevice(foundDevice);
+
+        // Assuming routine.action is a title, adjust if it's an id or another field
+        const foundAction = actions.find(
+          (action) => action.title === routine.action
+        );
+        setSelectedAction(foundAction);
+      }
+    });
+
+    return () => unsubscribe();
+  }, [routine, actions]);
 
   // Convert time string to Date object
   const getTimeFromDate = (timeStr) => {
@@ -98,7 +121,6 @@ function RoutineEditScreen({ route, navigation }) {
       // Handle the error, perhaps show a message to the user
     }
   };
-  console.log(routineId);
   // Delete the device
   const deleteRoutine = async () => {
     try {

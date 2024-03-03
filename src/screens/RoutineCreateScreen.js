@@ -42,7 +42,6 @@ function RoutineCreateScreen({ route, navigation }) {
             device.deviceType === "Lights"
         ); // Filter devices here
 
-      console.log(loadedDevices);
       setDevices(loadedDevices);
     });
 

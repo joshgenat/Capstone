@@ -25,8 +25,13 @@ function AnalyticsScreen(props) {
         ...doc.data(),
         id: doc.id,
       }));
-      setDevices(usersList);
+
+      // Calculate and set total usage time
       calculateTotalUsageTime(usersList);
+      // Sort devices based on usage time before setting state
+      const sortedDevices = sortDevicesByUsageTime(usersList);
+
+      setDevices(usersList);
       setLoading(false);
     });
   }, []);
@@ -54,6 +59,20 @@ function AnalyticsScreen(props) {
     const totalHours = Math.floor(totalMinutes / 60);
     const remainingMinutes = totalMinutes % 60;
     setTotalUsageTime(`${totalHours}h ${remainingMinutes}min`);
+  };
+
+  // Function to convert usage time string to total minutes
+  const usageTimeToMinutes = (timeUsed) => {
+    if (!timeUsed) return 0;
+    const [hours, minutes] = timeUsed.split(/[hmin ]+/).map(Number);
+    return hours * 60 + minutes;
+  };
+
+  // Function to sort devices by usage time
+  const sortDevicesByUsageTime = (devices) => {
+    return devices.sort((a, b) => {
+      return usageTimeToMinutes(b.timeUsed) - usageTimeToMinutes(a.timeUsed);
+    });
   };
 
   return (

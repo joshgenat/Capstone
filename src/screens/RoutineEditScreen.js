@@ -8,12 +8,11 @@ import AppText from "../components/AppText";
 import AppPicker from "../components/AppPicker";
 
 import {
-  addDoc,
+  collection,
   deleteDoc,
   doc,
-  updateDoc,
-  collection,
   onSnapshot,
+  updateDoc,
 } from "firebase/firestore";
 import { db } from "../config/firebase";
 import AppTextInput from "../components/AppTextInput";
@@ -24,7 +23,7 @@ import AppButton from "../components/AppButton";
 // });
 
 function RoutineEditScreen({ route, navigation }) {
-  const [devices, setDevices] = useState([]);
+  const [devices, setDevices] = useState([]); // This should be outside useEffect
   const [action, setAction] = useState();
 
   const actions = [
@@ -42,12 +41,11 @@ function RoutineEditScreen({ route, navigation }) {
   const routineId = route.params.id; // Assuming 'id' is passed via params
 
   useEffect(() => {
-    // Subscribe to the Firestore collection
     const unsubscribe = onSnapshot(collection(db, "devices"), (snapshot) => {
       const loadedDevices = snapshot.docs
         .map((doc) => ({
           id: doc.id,
-          title: doc.data().deviceName, // Assuming 'deviceName' is the field in Firestore
+          title: doc.data().deviceName,
           deviceType: doc.data().deviceType,
         }))
         .filter(
@@ -55,16 +53,15 @@ function RoutineEditScreen({ route, navigation }) {
             device.deviceType === "Thermometer" ||
             device.deviceType === "Lights"
         ); // Filter devices here
+
       setDevices(loadedDevices);
 
-      // After devices are loaded, find and set the selectedDevice based on the routine
       if (routine) {
         const foundDevice = loadedDevices.find(
           (device) => device.title === routine.device
         );
         setSelectedDevice(foundDevice);
 
-        // Assuming routine.action is a title, adjust if it's an id or another field
         const foundAction = actions.find(
           (action) => action.title === routine.action
         );
@@ -73,7 +70,7 @@ function RoutineEditScreen({ route, navigation }) {
     });
 
     return () => unsubscribe();
-  }, [routine, actions]);
+  }, [db, routine]); // Ensure routine is in the dependency array if it could change
 
   // Convert time string to Date object
   const getTimeFromDate = (timeStr) => {
@@ -167,7 +164,7 @@ function RoutineEditScreen({ route, navigation }) {
               selectedItem={selectedDevice}
               onSelectItem={(item) => setSelectedDevice(item)}
               items={devices}
-            ></AppPicker>
+            />
           </View>
 
           <View style={styles.section}>

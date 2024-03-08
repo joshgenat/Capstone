@@ -10,4 +10,5 @@ export default {
   heat: "#f68838",
   cool: "#62a1db",
   live: "#00A36C",
+  background: "#26425b",
 };

@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { StyleSheet, FlatList, View } from "react-native";
+import * as Notifications from "expo-notifications";
+import * as Device from "expo-device";
 
 import Screen from "../components/Screen";
 import Card from "../components/Card";
@@ -11,6 +13,14 @@ import colors from "../config/colors";
 import { collection, onSnapshot } from "firebase/firestore";
 import { db, db2 } from "../config/firebase";
 import { ref, onValue } from "firebase/database";
+
+Notifications.setNotificationHandler({
+  handleNotification: async () => ({
+    shouldShowAlert: true,
+    shouldPlaySound: true,
+    shouldSetBadge: false,
+  }),
+});
 
 function DashboardScreen({ navigation }) {
   // read devices from firebase
@@ -41,7 +51,41 @@ function DashboardScreen({ navigation }) {
     readRealtimeThermometer();
     readRealtimeSensor();
     readRealtimeCamera();
+
+    registerForPushNotificationsAsync();
   }, []);
+
+  async function registerForPushNotificationsAsync() {
+    let token;
+    if (Device.isDevice) {
+      const { status: existingStatus } =
+        await Notifications.getPermissionsAsync();
+      let finalStatus = existingStatus;
+      if (existingStatus !== "granted") {
+        const { status } = await Notifications.requestPermissionsAsync();
+        finalStatus = status;
+      }
+      if (finalStatus !== "granted") {
+        alert("Failed to get push token for push notification!");
+        return;
+      }
+      token = (await Notifications.getExpoPushTokenAsync()).data;
+      console.log(token);
+    } else {
+      alert("Must use physical device for Push Notifications");
+    }
+
+    if (Platform.OS === "android") {
+      Notifications.setNotificationChannelAsync("default", {
+        name: "default",
+        importance: Notifications.AndroidImportance.MAX,
+        vibrationPattern: [0, 250, 250, 250],
+        lightColor: "#FF231F7C",
+      });
+    }
+
+    return token;
+  }
 
   function readRealtimeThermometer() {
     const realtimeRef = ref(db2, "devices/Thermometer");
@@ -57,6 +101,10 @@ function DashboardScreen({ navigation }) {
     onValue(realtimeRef, (snapshot) => {
       const data = snapshot.val();
       setSensors(data); // Adjust based on your data structure
+      if (data.toggle === 1) {
+        // Assuming data.toggle is where the sensor's state is stored
+        showNotification();
+      }
     });
   }
 
@@ -180,6 +228,18 @@ function DashboardScreen({ navigation }) {
     } else {
       return colors.primary; // Neutral or equal
     }
+  };
+
+  // Adjusted showNotification function
+  const showNotification = () => {
+    Notifications.scheduleNotificationAsync({
+      content: {
+        title: "ALERT",
+        body: "Your Sensor has detected a signal!",
+        data: { data: "goes here" },
+      },
+      trigger: null, // Show immediately
+    });
   };
 
   return (

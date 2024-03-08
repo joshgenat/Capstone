@@ -51,7 +51,9 @@ function LoginScreen({ navigation }) {
 }
 
 const styles = StyleSheet.create({
-  container: {},
+  container: {
+    backgroundColor: colors.background,
+  },
   logo: {
     width: 80,
     height: 80,

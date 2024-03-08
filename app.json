@@ -24,7 +24,7 @@
       "package": "SmartHub.Capstone"
     },
     "web": {
-      "favicon": "./src/assets/favicon.png"
+      "favicon": "./src/assets/logo.png"
     },
     "extra": {
       "eas": {
@@ -36,6 +36,11 @@
     },
     "updates": {
       "url": "https://u.expo.dev/17c58847-0843-4e50-8518-48722630a1d4"
+    },
+    "notification": {
+      // "icon": "./src/assets/logo.png",
+      "color": "#FFFFFF", // Optional: background color of your icon; it's used only on Android.
+      "iosDisplayInForeground": true // Optional: Shows notifications when the app is in foreground on iOS
     }
   }
 }

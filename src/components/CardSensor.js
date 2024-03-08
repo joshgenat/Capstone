@@ -14,6 +14,8 @@ function CardSensor({ title, icon, onPress, iconColor, status }) {
         <View style={styles.contentContainer}>
           <MaterialCommunityIcons name={icon} size={50} color={iconColor} />
           <Text style={styles.title}>{title}</Text>
+        </View>
+        <View style={styles.toggleContainer}>
           <AppText style={styles.text}>Status: ON</AppText>
         </View>
       </TouchableOpacity>
@@ -39,25 +41,26 @@ const styles = StyleSheet.create({
         elevation: 5,
       },
     }),
+    justifyContent: "space-between",
   },
   contentContainer: {
     alignItems: "center", // Center the icon and title
     justifyContent: "center", // Center the icon and title
-    padding: 15,
+    paddingTop: 15,
+    flex: 5,
   },
   title: {
     color: colors.black, // Title color
-    fontSize: 18,
+    fontSize: 20,
     marginVertical: 20, // Space between icon and title
+    textAlign: "center",
   },
   toggleContainer: {
-    padding: 10,
-    backgroundColor: colors.white,
-    justifyContent: "center",
+    justifyContent: "flex-end",
     alignItems: "center",
     flex: 1,
-    borderBottomLeftRadius: 15,
-    borderBottomRightRadius: 15,
+    width: "100%",
+    marginBottom: 10,
   },
   touchableArea: {
     flex: 5,

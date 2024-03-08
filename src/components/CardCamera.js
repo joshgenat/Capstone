@@ -1,53 +1,12 @@
-import React, { useState, useEffect } from "react";
-import { View, StyleSheet, Text, Switch, TouchableOpacity } from "react-native";
+import React from "react";
+import { View, StyleSheet, Text, TouchableOpacity } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 import colors from "../config/colors";
-
-import { updateDoc, doc } from "firebase/firestore";
-import { db, db2 } from "../config/firebase";
-import { getDatabase, onValue, ref, set } from "firebase/database";
 import AppText from "./AppText";
 
-function CardThermometer({
-  title,
-  icon,
-  onPress,
-  device,
-  iconColor,
-  currentTemp,
-}) {
-  const [temperature, setTemperature] = useState(null);
-
-  const toggleSwitch = async () => {
-    const newToggleState = setTemperature;
-    console.log("toggle");
-    const firestoreRef = device.id ? doc(db, "devices", device.id) : null;
-    const realtimeRef = device.deviceName
-      ? ref(db2, "devices/" + device.deviceName)
-      : null;
-
-    // Update Firestore
-    if (firestoreRef) {
-      try {
-        await updateDoc(firestoreRef, { setTemp: temperature });
-
-        console.log("firestore");
-      } catch (error) {
-        console.error("Error updating device in Firestore: ", error);
-      }
-    }
-
-    // Update Realtime Database
-    if (realtimeRef) {
-      try {
-        await set(realtimeRef, { setTemp: temperature });
-        console.log("realtime");
-      } catch (error) {
-        console.error("Error updating device in Realtime Database: ", error);
-      }
-    }
-  };
+function CardCamera({ title, icon, onPress, iconColor, status }) {
+  // const getStatusText = status === 1 ? "ON" : "OFF";
 
   return (
     <View style={styles.card}>
@@ -57,7 +16,7 @@ function CardThermometer({
           <Text style={styles.title}>{title}</Text>
         </View>
         <View style={styles.toggleContainer}>
-          <AppText style={styles.text}>{currentTemp}°C</AppText>
+          <AppText style={styles.text}>Status: ON</AppText>
         </View>
       </TouchableOpacity>
     </View>
@@ -82,6 +41,7 @@ const styles = StyleSheet.create({
         elevation: 5,
       },
     }),
+    justifyContent: "space-between",
   },
   contentContainer: {
     alignItems: "center", // Center the icon and title
@@ -113,4 +73,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default CardThermometer;
+export default CardCamera;

@@ -9,4 +9,5 @@ export default {
   danger: "#ff5252",
   heat: "#f68838",
   cool: "#62a1db",
+  live: "#00A36C",
 };

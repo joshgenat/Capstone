@@ -4,12 +4,13 @@ import { StyleSheet, FlatList, View } from "react-native";
 import Screen from "../components/Screen";
 import Card from "../components/Card";
 import CardThermometer from "../components/CardThermometer";
+import CardSensor from "../components/CardSensor";
+import CardCamera from "../components/CardCamera";
 import colors from "../config/colors";
 
 import { collection, onSnapshot } from "firebase/firestore";
 import { db, db2 } from "../config/firebase";
 import { ref, onValue } from "firebase/database";
-import CardSensor from "../components/CardSensor";
 
 function DashboardScreen({ navigation }) {
   // read devices from firebase
@@ -17,6 +18,7 @@ function DashboardScreen({ navigation }) {
   const [loading, setLoading] = useState(false);
   const [thermometers, setThermometers] = useState([]);
   const [sensors, setSensors] = useState({});
+  const [camera, setCamera] = useState({});
 
   useEffect(() => {
     setLoading(true);
@@ -38,6 +40,7 @@ function DashboardScreen({ navigation }) {
     });
     readRealtimeThermometer();
     readRealtimeSensor();
+    readRealtimeCamera();
   }, []);
 
   function readRealtimeThermometer() {
@@ -54,6 +57,14 @@ function DashboardScreen({ navigation }) {
     onValue(realtimeRef, (snapshot) => {
       const data = snapshot.val();
       setSensors(data); // Adjust based on your data structure
+    });
+  }
+
+  function readRealtimeCamera() {
+    const realtimeRef = ref(db2, "devices/Camera");
+    onValue(realtimeRef, (snapshot) => {
+      const data = snapshot.val();
+      setCamera(data); // Adjust based on your data structure
     });
   }
 
@@ -120,6 +131,26 @@ function DashboardScreen({ navigation }) {
             }
           />
         );
+      case "Camera":
+        // console.log(sensors.toggle);
+        const cameraColor = camera.toggle ? colors.live : colors.black;
+        return (
+          <CardCamera
+            title={item.deviceName}
+            icon={icon}
+            device={item}
+            iconColor={cameraColor}
+            status={camera.toggle}
+            onPress={() =>
+              navigation.navigate("Edit Camera", {
+                deviceData: item,
+                icon: icon,
+                toggle: camera.toggle,
+                iconColor: cameraColor,
+              })
+            }
+          />
+        );
       default:
         return null; // or some default card if deviceType is unknown
     }
@@ -133,8 +164,8 @@ function DashboardScreen({ navigation }) {
         return "smoke-detector-outline";
       case "Thermometer":
         return "thermometer";
-      case "camera":
-        return "video";
+      case "Camera":
+        return "video-outline";
     }
   }
 

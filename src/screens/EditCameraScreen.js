@@ -17,6 +17,7 @@ function EditCameraScreen({ route, navigation }) {
     route.params.deviceData.deviceName
   );
   const [toggleStatus, setToggleStatus] = useState(route.params.toggle); // Initial toggle status passed through route.params
+  const [detectedPerson, setDetectedPerson] = useState(null);
 
   const deviceData = route.params?.deviceData;
   const icon = route.params?.icon;
@@ -24,15 +25,37 @@ function EditCameraScreen({ route, navigation }) {
 
   useEffect(() => {
     // Listen for real-time updates to the sensor's toggle status
-    console.log(deviceData.deviceName);
     const toggleRef = ref(db2, `devices/${deviceData.deviceName}/toggle`);
-    const unsubscribe = onValue(toggleRef, (snapshot) => {
+
+    const unsubscribeToggle = onValue(toggleRef, (snapshot) => {
       const currentToggleStatus = snapshot.val();
       setToggleStatus(currentToggleStatus); // Update state with new toggle status
     });
 
-    // Cleanup subscription on component unmount
-    return () => unsubscribe();
+    const savedPeopleRef = ref(
+      db2,
+      `devices/${deviceData.deviceName}/Saved People`
+    );
+    const unsubscribePeople = onValue(savedPeopleRef, (snapshot) => {
+      const savedPeopleData = snapshot.val();
+      const detected = Object.entries(savedPeopleData).find(
+        ([, value]) => value === 1
+      );
+      // If someone is detected, set the name, otherwise check for unknown
+      if (detected) {
+        setDetectedPerson(detected[0]);
+      } else if (savedPeopleData.Unknown === 1) {
+        setDetectedPerson("Unknown Person");
+      } else {
+        setDetectedPerson(null); // No one detected, can also set to "No Detection" or similar
+      }
+    });
+
+    // Cleanup subscriptions on component unmount
+    return () => {
+      unsubscribeToggle();
+      unsubscribePeople();
+    };
   }, [deviceData.deviceName]);
 
   // Save changes to the device name (this is just a placeholder, adjust based on your needs)
@@ -94,9 +117,19 @@ function EditCameraScreen({ route, navigation }) {
 
           <View style={styles.tempRow}>
             <AppText style={styles.tempLabel}>Status: ON</AppText>
-            {toggleStatus === 1 && (
-              <AppText style={styles.alert}>ALERT: Person Detected</AppText>
-            )}
+            {toggleStatus === 1 &&
+              detectedPerson &&
+              detectedPerson !== "Unknown Person" && (
+                <AppText
+                  style={
+                    detectedPerson === "Unknown"
+                      ? styles.alert
+                      : styles.neutralAlert
+                  }
+                >
+                  ALERT: {detectedPerson} Detected
+                </AppText>
+              )}
           </View>
         </View>
       </ScrollView>
@@ -146,6 +179,18 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: "bold",
     backgroundColor: colors.danger,
+    padding: 15,
+    marginTop: 15,
+    borderRadius: 5,
+    borderWidth: 2,
+    borderColor: colors.black,
+    textAlign: "center",
+  },
+  neutralAlert: {
+    color: colors.black,
+    fontSize: 20,
+    fontWeight: "bold",
+    backgroundColor: colors.live,
     padding: 15,
     marginTop: 15,
     borderRadius: 5,

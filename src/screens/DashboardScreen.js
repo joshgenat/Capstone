@@ -109,7 +109,7 @@ function DashboardScreen({ navigation }) {
   }
 
   function readRealtimeCamera() {
-    const realtimeRef = ref(db2, "devices/Camera");
+    const realtimeRef = ref(db2, "devices/Front Door Camera");
     onValue(realtimeRef, (snapshot) => {
       const data = snapshot.val();
       setCamera(data); // Adjust based on your data structure

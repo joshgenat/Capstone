@@ -26,3 +26,31 @@ export const toggleLed = async (toggleState) => {
     throw error; // Re-throw the error for handling in the component
   }
 };
+
+// Function to create a routine
+export const createRoutine = async (routineDetails) => {
+  try {
+    const response = await axios.post(
+      `${API_BASE_URL}/routines`,
+      routineDetails
+    );
+    return response.data; // Handle the response as needed
+  } catch (error) {
+    console.error("Error creating routine:", error);
+    throw error; // Re-throw the error for handling in the component
+  }
+};
+
+// Function to get model data by ID
+export const getModelData = async (modelId) => {
+  try {
+    // Use the modelId in the query parameter of the URL
+    const response = await axios.get(
+      `${API_BASE_URL}/getModel?modelID=${modelId}`
+    );
+    return response.data; // Contains the model data
+  } catch (error) {
+    console.error("Error fetching model by ID:", error);
+    throw error; // Re-throw the error for handling in the component
+  }
+};

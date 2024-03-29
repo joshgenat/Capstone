@@ -38,9 +38,11 @@ function EditCameraScreen({ route, navigation }) {
     );
     const unsubscribePeople = onValue(savedPeopleRef, (snapshot) => {
       const savedPeopleData = snapshot.val();
+      console.log(savedPeopleData);
       const detected = Object.entries(savedPeopleData).find(
         ([, value]) => value === 1
       );
+      console.log(detected);
       // If someone is detected, set the name, otherwise check for unknown
       if (detected) {
         setDetectedPerson(detected[0]);

@@ -3,7 +3,7 @@ import { View, StyleSheet, Text, Switch, TouchableOpacity } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 import colors from "../config/colors";
-import { toggleLed } from "../config/apiService";
+import { toggleLed, toggleFloorLight } from "../config/apiService";
 
 import { updateDoc, doc } from "firebase/firestore";
 import { db, db2 } from "../config/firebase";
@@ -24,9 +24,15 @@ function Card({ title, icon, onPress, device }) {
     setIsEnabled(newToggleState);
 
     try {
-      await toggleLed(newToggleState);
-      console.log("Toggle state updated successfully");
-      // Optionally, fetch any necessary data again to reflect changes
+      if (title === "Floor Lights") {
+        await toggleFloorLight(newToggleState);
+        console.log("Floor light toggle state updated successfully");
+      } else if (title === "Ceiling Lights") {
+        await toggleLed(newToggleState);
+        console.log("LED toggle state updated successfully");
+      } else {
+        console.log("Unknown device");
+      }
     } catch (error) {
       console.error("Error toggling LED:", error);
       // Handle the error (e.g., show an error message to the user)

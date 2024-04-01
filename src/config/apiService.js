@@ -27,6 +27,19 @@ export const toggleLed = async (toggleState) => {
   }
 };
 
+// Function to toggle the LED state
+export const toggleFloorLight = async (toggleState) => {
+  try {
+    const response = await axios.post(`${API_BASE_URL}/toggleFloorLight`, {
+      toggle: toggleState,
+    });
+    return response.data; // Handle the response as needed
+  } catch (error) {
+    console.error("Error toggling LED:", error);
+    throw error; // Re-throw the error for handling in the component
+  }
+};
+
 // Function to create a routine
 export const createRoutine = async (routineDetails) => {
   try {

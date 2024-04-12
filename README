@@ -1,0 +1,42 @@
+Capstone Project: SmartHub
+
+This repository contains the source code for the Capstone smart home application developed using React Native and Expo.
+
+Prerequisites
+Before you begin, ensure you have the following installed:
+
+Node.js (v12 or newer)
+npm (which comes with Node.js)
+Expo CLI
+
+You can install Expo CLI globally with npm:
+npm install -g expo-cli
+
+Setting Up the Development Environment
+To set up your development environment, follow these steps:
+
+Clone the repository:
+git clone Capstone
+
+Navigate to the project directory:
+cd capstone
+
+Install the dependencies:
+npm install
+
+Running the Application
+To start the Expo development server:
+npm start
+
+
+Libraries and Dependencies
+This project makes use of several notable libraries:
+
+@react-navigation: For handling navigation between screens.
+axios: For making API calls.
+expo: An open-source platform for making universal native apps with React.
+firebase: For the backend and real-time database operations.
+formik: For building forms.
+react-native-paper: For material design components.
+react-native-chart-kit: For rendering charts.
+react-native-vector-icons: For displaying icons.

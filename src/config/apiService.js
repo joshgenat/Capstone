@@ -67,3 +67,16 @@ export const getModelData = async (modelId) => {
     throw error; // Re-throw the error for handling in the component
   }
 };
+
+// Function to toggle the flame device
+export const toggleFlame = async (toggleState) => {
+  try {
+    const response = await axios.post(`${API_BASE_URL}/toggleFlame`, {
+      toggle: toggleState,
+    });
+    return response.data; // Contains the response from the server
+  } catch (error) {
+    console.error("Error toggling flame:", error);
+    throw error; // Re-throw the error for handling in the component
+  }
+};

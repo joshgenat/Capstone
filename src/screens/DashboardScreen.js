@@ -100,8 +100,9 @@ function DashboardScreen({ navigation }) {
     const realtimeRef = ref(db2, "devices/Flame Sensor");
     onValue(realtimeRef, (snapshot) => {
       const data = snapshot.val();
+      console.log(data);
       setSensors(data); // Adjust based on your data structure
-      if (data.toggle === 1) {
+      if (data === 1) {
         // Assuming data.toggle is where the sensor's state is stored
         showNotification();
       }

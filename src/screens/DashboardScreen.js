@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { StyleSheet, FlatList, View } from "react-native";
+import { StyleSheet, FlatList, Platform, View } from "react-native";
 import * as Notifications from "expo-notifications";
 import * as Device from "expo-device";
 

@@ -2,17 +2,17 @@
   "expo": {
     "name": "Capstone",
     "slug": "Capstone",
-    "description": "This is our Capstone project for a Smart Hub app.",
+    "description": "This is our Capstone project for a Smart Hub app, designed to integrate smart home devices in a user-friendly interface.",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./src/assets/logo.png",
-    "userInterfaceStyle": "light",
+    "userInterfaceStyle": "automatic",
     "splash": {
       "image": "./src/assets/splash.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": ["**/*.png", "**/*.jpg"],
     "ios": {
       "supportsTablet": true
     },
@@ -28,7 +28,7 @@
     },
     "extra": {
       "eas": {
-        "projectId": "17c58847-0843-4e50-8518-48722630a1d4"
+        "projectId": "17c58847-0843-4e50-8516-48722630a1d4"
       }
     },
     "runtimeVersion": {
@@ -38,9 +38,9 @@
       "url": "https://u.expo.dev/17c58847-0843-4e50-8518-48722630a1d4"
     },
     "notification": {
-      // "icon": "./src/assets/logo.png",
-      "color": "#FFFFFF", // Optional: background color of your icon; it's used only on Android.
-      "iosDisplayInForeground": true // Optional: Shows notifications when the app is in foreground on iOS
+      "icon": "./src/assets/logo.png",
+      "color": "#FFFFFF",
+      "iosDisplayInForeground": true
     }
   }
 }

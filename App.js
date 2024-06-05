@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from "react";
-import { FlatList, StatusBar, StyleSheet, Text, View } from "react-native";
+import { StatusBar, StyleSheet, Text, View } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { collection, onSnapshot } from "firebase/firestore";
 import { db } from "./src/config/firebase";
 
-import CreateUser from "./src/components/CreateUser";
-import DeleteUser from "./src/components/DeleteUser";
 import colors from "./src/config/colors";
 import navigationTheme from "./src/navigation/navigationTheme";
 import AppNavigator from "./src/navigation/AppNavigator";
+
+import { AppRegistry } from "react-native";
+import { name as appName } from "./app.json";
 
 export default function App() {
   const [people, setPeople] = useState([]);
@@ -33,11 +34,7 @@ export default function App() {
   );
 
   return (
-    // <Screen style={styles.container}>
-    //   <Toggle></Toggle>
-    // </Screen>
     <>
-      {/* <CreateUser></CreateUser> */}
       <StatusBar barStyle="dark-content"></StatusBar>
       <NavigationContainer theme={navigationTheme}>
         <AppNavigator></AppNavigator>
@@ -52,3 +49,6 @@ const styles = StyleSheet.create({
     backgroundColor: colors.light,
   },
 });
+
+// Right after your component, register it:
+AppRegistry.registerComponent(appName, () => App);
